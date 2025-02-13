@@ -79,7 +79,7 @@ const OverviewPage = () => {
     <div className="card-body">
       <h2 className="card-title">
         Top riders with acceptance rate
-        <span style={{ paddingLeft: '80px' }}>
+        <span style={{ paddingLeft: '60px' }}>
           <a href="javascript:void(0)">View All</a>
         </span>
       </h2>
