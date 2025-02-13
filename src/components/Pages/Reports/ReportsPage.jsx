@@ -1,5 +1,5 @@
-import '../styles/style.scss';
-import profilePic from '../assets/profile-img.webp';
+import "../../../styles/style.min.css";
+import profilePic from '../../../assets/profile-img.webp';
 
 
 const OverviewPage = () => {
@@ -8,7 +8,7 @@ const OverviewPage = () => {
       {/* Top row of overview and profile image */}
       <div className="overview-container">
     <div className="page-overview">
-      <h1 className="page-title">Riders</h1>
+      <h1 className="page-title">Reports</h1>
     </div>
     <div className="main-top-profile">
       <span className="name">Saksham Pandey</span>

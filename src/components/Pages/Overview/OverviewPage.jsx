@@ -1,6 +1,6 @@
-import "../styles/style.min.css";
-import profilePic from '../assets/profile-img.webp';
-import chart from '../assets/charts.png'
+import "../../../styles/style.min.css";
+import profilePic from '../../../assets/profile-img.webp';
+import chart from '../../../assets/charts.png'
 
 
 const OverviewPage = () => {

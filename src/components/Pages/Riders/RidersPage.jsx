@@ -1,8 +1,8 @@
-import "../styles/style.min.css";
-import profilePic from '../assets/profile-img.webp';
-import newRider from '../assets/new-rider.png';
-import block from '../assets/block.png';
-import del from '../assets/del.png';
+import "../../../styles/style.min.css";
+import profilePic from '../../../assets/profile-img.webp';
+import newRider from '../../../assets/new-rider.png';
+import block from '../../../assets/block.png';
+import del from '../../../assets/del.png';
 import { useState } from "react";
 
 

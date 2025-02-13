@@ -1,6 +1,6 @@
-import '../styles/style.scss';
-import profilePic from '../assets/profile-img.webp';
-import aeroplane from '../assets/aeroplane.png';
+import "../../../styles/style.min.css";
+import profilePic from '../../../assets/profile-img.webp';
+import aeroplane from '../../../assets/aeroplane.png';
 import { Link } from 'react-router-dom';
 
 

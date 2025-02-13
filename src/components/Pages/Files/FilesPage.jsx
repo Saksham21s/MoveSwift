@@ -1,14 +1,14 @@
-import '../styles/style.scss';
-import profilePic from '../assets/profile-img.webp';
+import "../../../styles/style.min.css";
+import profilePic from '../../../assets/profile-img.webp';
 
 
-const LogoutPage = () => {
+const FilesPage = () => {
  return (
     <main className="main-content">
     {/* Top row of overview and profile image */}
     <div className="overview-container">
   <div className="page-overview">
-    <h1 className="page-title">Riders</h1>
+    <h1 className="page-title">Files</h1>
   </div>
   <div className="main-top-profile">
     <span className="name">Saksham Pandey</span>
@@ -21,4 +21,4 @@ const LogoutPage = () => {
   );
 };
 
-export default LogoutPage;
+export default FilesPage;

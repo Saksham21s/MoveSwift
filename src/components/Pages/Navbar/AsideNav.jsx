@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import "../styles/style.min.css";
+import "../../../styles/style.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartBar,
@@ -13,7 +13,7 @@ import {
   faChevronRight,
   faBars, // Hamburger icon
 } from "@fortawesome/free-solid-svg-icons";
-import logo from "../assets/fullship-logo.png";
+import logo from "../../../assets/fullship-logo.png";
 
 const AsideSection = () => {
   const [isOpen, setIsOpen] = useState(true);
