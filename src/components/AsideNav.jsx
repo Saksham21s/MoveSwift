@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom';
 import "../styles/style.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -29,15 +29,15 @@ const AsideSection = () => {
 
   return (
     <aside className={`sidebar ${isOpen ? "" : "collapsed"} ${isMobileOpen ? "open" : ""}`}>
-      
+      <Link to="/" style={{ textDecoration: 'none' }}>
         <div className="logo">
-        <Link to="/riders">
           <div className="img-logo">
             <img src={logo} alt="Logo" className="logo-img" />
-          </div> </Link>
+          </div>
           <span className="logo-text">FULL SHIP</span>
         </div>
-     
+      </Link>
+
       {/* Toggle button for larger screens */}
       <div className="toggle-btn" onClick={toggleSidebar}>
         <FontAwesomeIcon icon={faChevronRight} />
