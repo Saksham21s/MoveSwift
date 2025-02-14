@@ -1,6 +1,6 @@
 import "../../../styles/style.min.css";
-import profilePic from '../../../assets/profile-img.webp';
 import { Bar, } from "react-chartjs-2";
+import MainTop from '../Navbar/MainTop';
 import { Chart as ChartJS, BarElement, LineElement, PointElement, CategoryScale, LinearScale,LineController, Tooltip, Legend, Filler } from "chart.js";
 import PropTypes from 'prop-types';
 
@@ -131,17 +131,7 @@ const OverviewPage = () => {
 
     return (
         <main className="main-content">
-            <div className="overview-container">
-                <div className="page-overview">
-                    <h1 className="page-title">Overview</h1>
-                </div>
-                <div className="main-top-profile">
-                    <span className="name">Saksham Pandey</span>
-                    <div className="img-container">
-                        <img src={profilePic} alt="Profile Image" className="rounded-img" />
-                    </div>
-                </div>
-            </div>
+           <MainTop title="Overview" />
 
             <section className="summary-cards">
                 <div className="row">

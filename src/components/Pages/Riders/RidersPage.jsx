@@ -2,10 +2,11 @@ import "../../../styles/style.min.css";
 import { useState } from "react";
 import ConfirmationDialog from "./ConfirmationDialog"
 import { useNavigate } from 'react-router-dom';
-import profilePic from '../../../assets/profile-img.webp';
 import newRider from '../../../assets/new-rider.png';
 import block from '../../../assets/block.png';
 import del from '../../../assets/del.png';
+import MainTop from '../Navbar/MainTop';
+{/* <MainTop title="Riders" /> */}
 
 
 
@@ -83,17 +84,7 @@ const OverviewPage = () => {
   return (
     <main className="main-content">
       {/* Top row of overview and profile image */}
-      <div className="overview-container">
-        <div className="page-overview">
-          <h1 className="page-title">Riders</h1>
-        </div>
-        <div className="main-top-profile">
-          <span className="name">Saksham Pandey</span>
-          <div className="img-container">
-            <img src={profilePic} alt="Profile Image" className="rounded-img" />
-          </div>
-        </div>
-      </div>
+      <MainTop title="Riders" />
       {/* Summary cards section */}
       <section className="summary-cards">
         <div className="summary-row">

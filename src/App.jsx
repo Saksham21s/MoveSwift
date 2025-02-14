@@ -8,6 +8,7 @@ import ReportsPage from './components/Pages/Reports/ReportsPage';
 import FilesPage from './components/Pages/Files/FilesPage'; 
 import SettingsPage from './components/Pages/Settings/SettingsPage';
 import LogoutPage from './components/Pages/Logout/LogoutPage';
+import ProfilePage from './components/Pages/Profile/ProfilePage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/files" element={<FilesPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/logout" element={<LogoutPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </div>
       </div>
