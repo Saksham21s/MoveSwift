@@ -10,7 +10,7 @@ const OverviewPage = () => {
       {/* Top row of overview and profile image */}
       <div className="overview-container">
         <div className="page-overview">
-          <h1 className="page-title">Riders</h1>
+          <h1 className="page-title">Vendors</h1>
         </div>
         <div className="main-top-profile">
           <span className="name">Saksham Pandey</span>
