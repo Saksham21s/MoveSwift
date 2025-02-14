@@ -1,10 +1,10 @@
 import "../../../styles/style.min.css";
 import profilePic from '../../../assets/profile-img.webp';
 import { Bar, } from "react-chartjs-2";
-import { Chart as ChartJS, BarElement, LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend, Filler } from "chart.js";
+import { Chart as ChartJS, BarElement, LineElement, PointElement, CategoryScale, LinearScale,LineController, Tooltip, Legend, Filler } from "chart.js";
 import PropTypes from 'prop-types';
 
-ChartJS.register(BarElement, LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend, Filler);
+ChartJS.register(BarElement, LineElement, PointElement, CategoryScale, LinearScale, LineController,Tooltip, Legend, Filler);
 
 const CashStatus = ({ actualCash, receivedCash }) => {
     const balanceCash = actualCash - receivedCash;
@@ -17,31 +17,33 @@ const CashStatus = ({ actualCash, receivedCash }) => {
     const chartData = {
         labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         datasets: [
-            {
-                label: "Received Cash",
-                data: weeklyReceivedCash,
-                backgroundColor: "#FFB7D5",
-                borderColor: '#FF99C2',
-                borderWidth: 2,
-                borderRadius: 8,
-                barPercentage: 0.7,
-                categoryPercentage: 0.6,
-            },
-            {
-                label: "Actual Cash",
-                data: weeklyActualCash,
-                borderColor: "#3498db",
-                backgroundColor: 'rgba(111, 189, 241, 0.2)',
-                fill: true,
-                tension: 0.4,
-                pointRadius: 6,
-                pointBackgroundColor: "#3498db",
-                pointBorderColor: 'white',
-                pointBorderWidth: 2,
-                type: 'line',
-            },
+          {
+            type: 'bar', 
+            label: "Received Cash",
+            data: weeklyReceivedCash,
+            backgroundColor: "#FFB7D5",
+            borderColor: '#FF99C2',
+            borderWidth: 2,
+            borderRadius: 8,
+            barPercentage: 0.7,
+            categoryPercentage: 0.6,
+          },
+          {
+            type: 'line', 
+            label: "Actual Cash",
+            data: weeklyActualCash,
+            borderColor: "#3498db",
+            backgroundColor: 'rgba(111, 189, 241, 0.2)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 6,
+            pointBackgroundColor: "#3498db",
+            pointBorderColor: 'white',
+            pointBorderWidth: 2,
+          }
         ],
-    };
+      };
+      
 
     const chartOptions = {
         responsive: true,
