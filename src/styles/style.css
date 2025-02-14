@@ -248,6 +248,7 @@ html {
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
+  cursor: pointer;
 }
 
 @media (max-width: 767px) {
@@ -406,7 +407,7 @@ html {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin-top: -85px;
+  margin-top: -75px;
   text-align: center;
 }
 .cash-status .card .card-body .status-container .cash-details .detail {
@@ -425,6 +426,7 @@ html {
   line-height: 36px;
   letter-spacing: 0.3px;
   text-align: center;
+  margin-bottom: 10px;
 }
 @media screen and (max-width: 768px) {
   .cash-status .card .card-body .img-tp-txt {
@@ -505,8 +507,9 @@ html {
   justify-content: space-between;
   font-weight: 400;
   font-size: 14px;
-  line-height: 20px;
+  line-height: 10px;
   letter-spacing: 0.2px;
+  border-bottom: 1px solid rgb(133, 135, 145);
 }
 .top-lists .card .card-body .list li span {
   color: rgb(159, 162, 180);
@@ -862,6 +865,55 @@ html {
   }
 }
 
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 603px;
+  height: 463px;
+  border-radius: 10px;
+  border: 2px solid orange;
+  flex-direction: column;
+  padding: 20px;
+  position: fixed;
+  top: 20%;
+  left: 35%;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.text-container {
+  padding: 0 15px;
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center; /* Align buttons in the center */
+  gap: 10px; /* Space between buttons */
+}
+
+.button-item {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.button-item:hover {
+  background-color: #0056b3;
+}
+
 .tabsoon {
   background-color: rgb(17, 81, 115);
   height: 341px;
@@ -888,6 +940,7 @@ html {
 }
 .tabsoon .go-overview {
   border: 2px solid rgb(202, 198, 231);
+  text-decoration: none;
   font-weight: 500;
   font-size: 16px;
   line-height: 18px;

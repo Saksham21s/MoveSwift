@@ -754,6 +754,7 @@ html {
       line-height: 24px;
       letter-spacing: 0.4px;
       padding-inline-start: 10px;
+      
     }
   }
 }
@@ -1011,6 +1012,58 @@ html {
     }
   }
 }
+
+//------------------------Delete and Block Rider  Pages Design Here ----------------------//
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 603px;
+height: 463px;
+border-radius: 10px;
+border: 2px solid orange;
+  flex-direction: column; 
+  padding: 20px;
+  position: fixed;
+  top: 20%; 
+  left: 35%;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px; 
+}
+
+.text-container {
+  padding: 0 15px;
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center; /* Align buttons in the center */
+  gap: 10px; /* Space between buttons */
+}
+
+.button-item {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.button-item:hover {
+  background-color: #0056b3;
+}
+
+
 
 //---------------------------------------------------Riders Page ends Here-------------------------------------------------------------//
 

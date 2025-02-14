@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AsideSection from './components/Pages/Navbar/AsideNav';
 import RidersPage from './components/Pages/Riders/RidersPage';
+import BlockRider from './components/Pages/Riders/BlockRiders';
+import DeleteRider from './components/Pages/Riders/DeleteRider';
 import VendorsPage from './components/Pages/Vendors/VendorsPage';
 import OverviewPage from './components/Pages/Overview/OverviewPage';
 import ReportsPage from './components/Pages/Reports/ReportsPage'; 
@@ -17,6 +19,8 @@ function App() {
           <Routes>
             <Route path="/" element={<OverviewPage />} />
             <Route path="/riders" element={<RidersPage />} />
+            <Route path="/riders/block" element={<BlockRider />} />
+            <Route path="/riders/delete" element={<DeleteRider />} />
             <Route path="/vendors" element={<VendorsPage />} />
             <Route path="/reports" element={<ReportsPage />} />
             <Route path="/files" element={<FilesPage />} />

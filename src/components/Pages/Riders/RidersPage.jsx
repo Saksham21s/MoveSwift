@@ -4,6 +4,7 @@ import newRider from '../../../assets/new-rider.png';
 import block from '../../../assets/block.png';
 import del from '../../../assets/del.png';
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 const OverviewPage = () => {
@@ -33,7 +34,7 @@ const OverviewPage = () => {
     { id: 19, name: "Jackson Mitchell", image: "https://plus.unsplash.com/premium_photo-1678197937465-bdbc4ed95815?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHBlcnNvbnxlbnwwfHwwfHx8MA%3D%3D", tenure: "1 year", batch: "Batch A", contract: "Active", zone: "Zone 4" },
     { id: 20, name: "Harper Walker", image: "https://media.istockphoto.com/id/1188562863/photo/grateful-happy-beautiful-indian-girl-holding-hands-on-chest.webp?a=1&b=1&s=612x612&w=0&k=20&c=WjBV8cv5pD0HIwDtgQDcXxzISiyef7T_dhaUqNXxK0o=", tenure: "5 months", batch: "Batch C", contract: "Blocked", zone: "Zone 1" }
   ];
-  
+
 
   // Filtering & Searching Logic
   const filteredRiders = riders.filter((rider) => {
@@ -45,147 +46,153 @@ const OverviewPage = () => {
   const handleMenuToggle = (id) => {
     setMenuVisible(menuVisible === id ? null : id);
   };
- return (
+  return (
     <main className="main-content">
-    {/* Top row of overview and profile image */}
-    <div className="overview-container">
-  <div className="page-overview">
-    <h1 className="page-title">Riders</h1>
-  </div>
-  <div className="main-top-profile">
-    <span className="name">Saksham Pandey</span>
-    <div className="img-container">
-      <img src={profilePic} alt="Profile Image" className="rounded-img" />
-    </div>
-  </div>
-</div>
-    {/* Summary cards section */}
-    <section className="summary-cards">
-  <div className="summary-row">
-    <div className="summary-item">
-      <div className="summary-box">
-        <div className="summary-body">Total Rider<span className="summary-count">145</span></div>
-      </div>
-    </div>
-    <div className="summary-item">
-      <div className="summary-box" style={{ backgroundColor: 'rgba(221, 226, 255, 1)' }}>
-        <div className="summary-body" style={{ color: 'black' }}>Active Riders<span className="summary-count">126</span></div>
-      </div>
-    </div>
-    <div className="summary-item">
-      <div className="summary-box">
-        <div className="summary-body">Inactive Riders<span className="summary-count">12</span></div>
-      </div>
-    </div>
-    <div className="summary-item">
-      <div>
-        <div className="new-rider">
-          <img src={newRider} alt="New Rider" />
-          <span>Add New Rider</span>
+      {/* Top row of overview and profile image */}
+      <div className="overview-container">
+        <div className="page-overview">
+          <h1 className="page-title">Riders</h1>
         </div>
-        <div className="new-rider-btn">
-          <div className="rider-btn-item"><img src={block} alt="Block" /><span>Block</span></div>
-          <div className="rider-btn-item"><img src={del} alt="Delete" /><span>Delete</span></div>
+        <div className="main-top-profile">
+          <span className="name">Saksham Pandey</span>
+          <div className="img-container">
+            <img src={profilePic} alt="Profile Image" className="rounded-img" />
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+      {/* Summary cards section */}
+      <section className="summary-cards">
+        <div className="summary-row">
+          <div className="summary-item">
+            <div className="summary-box">
+              <div className="summary-body">Total Rider<span className="summary-count">145</span></div>
+            </div>
+          </div>
+          <div className="summary-item">
+            <div className="summary-box" style={{ backgroundColor: 'rgba(221, 226, 255, 1)' }}>
+              <div className="summary-body" style={{ color: 'black' }}>Active Riders<span className="summary-count">126</span></div>
+            </div>
+          </div>
+          <div className="summary-item">
+            <div className="summary-box">
+              <div className="summary-body">Inactive Riders<span className="summary-count">12</span></div>
+            </div>
+          </div>
+          <div className="summary-item">
+            <div>
+              <div className="new-rider">
+                <img src={newRider} alt="New Rider" />
+                <span>Add New Rider</span>
+              </div>
+              <div className="new-rider-btn">
+                <Link to="/riders/block" className="rider-btn-item" style={{ textDecoration: "none" }}>
+                  <img src={block} alt="Block" />
+                  <span>Block</span>
+                </Link>
+                <Link to="/riders/delete" className="rider-btn-item" style={{ textDecoration: "none" }}>
+                  <img src={del} alt="Delete" />
+                  <span>Delete</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
 
-<div className="rider-data">
-  <div className="filter-rider">
-    {["Active Rider", "Blocked Rider", "Deleted Rider", "All Rider"].map((item) => (
-      <div
-        key={item}
-        className={`rider-filter-data ${filter === item ? "active" : ""}`}
-        onClick={() => setFilter(item)}
-      >
-        {item}
+      <div className="rider-data">
+        <div className="filter-rider">
+          {["Active Rider", "Blocked Rider", "Deleted Rider", "All Rider"].map((item) => (
+            <div
+              key={item}
+              className={`rider-filter-data ${filter === item ? "active" : ""}`}
+              onClick={() => setFilter(item)}
+            >
+              {item}
+            </div>
+          ))}
+        </div>
       </div>
-    ))}
-  </div>
-</div>
 
-<div className="rider-data-card">
-  {/* Deleted Riders Alert */}
-  {filter === 'Deleted Rider' && (
-    <div className="alert-box">
-      <span className="alert-text">Deleted users will be removed from the list automatically after 15 days.</span>
-      <button className="alert-close-btn" onClick={() => setFilter('')}>×</button>
-    </div>
-  )}
-
-  {/* Filter Tabs */}
-  {/* Search and Filter */}
-  <div className="card-header">
-    <input
-      type="text"
-      placeholder="Search Rider..."
-      className="search-bar"
-      value={searchTerm}
-      onChange={(e) => setSearchTerm(e.target.value)}
-    />
-    <button className="filter-btn">Filter</button>
-  </div>
-
-  {/* Riders Table */}
-  <div className="rider-table-container">
-    <table className="rider-table">
-      <thead>
-        <tr>
-          <th><input type="checkbox" /></th>
-          <th>S. No.</th>
-          <th>Rider Name</th>
-          <th>Tenure</th>
-          <th>Batch</th>
-          <th>Contract</th>
-          <th>Zone</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {filteredRiders.length > 0 ? (
-          filteredRiders.map((rider, index) => (
-            <tr key={rider.id}>
-              <td><input type="checkbox" /></td>
-              <td>{index + 1}</td>
-              <td className="rider-info">
-                <img src={rider.image} alt={rider.name} className="rider-img" />
-                {rider.name}
-              </td>
-              <td>{rider.tenure}</td>
-              <td>{rider.batch}</td>
-              <td className={`contract ${rider.contract.toLowerCase()}`}>
-              <div className="clr">
-                {rider.contract}</div>
-              </td>
-              <td>{rider.zone}</td>
-              <td className="action-cell">
-                <button className="action-btn" onClick={() => handleMenuToggle(rider.id)}>⋮</button>
-                {menuVisible === rider.id && (
-                  <div className="action-menu">
-                    <button>View</button>
-                    <button>Edit</button>
-                    <button>Block</button>
-                    <button>Delete</button>
-                  </div>
-                )}
-              </td>
-            </tr>
-          ))
-        ) : (
-          <tr>
-            <td colSpan="8" className="no-data">No riders found</td>
-          </tr>
+      <div className="rider-data-card">
+        {/* Deleted Riders Alert */}
+        {filter === 'Deleted Rider' && (
+          <div className="alert-box">
+            <span className="alert-text">Deleted users will be removed from the list automatically after 15 days.</span>
+            <button className="alert-close-btn" onClick={() => setFilter('')}>×</button>
+          </div>
         )}
-      </tbody>
-    </table>
-  </div>
-</div>
+
+        {/* Filter Tabs */}
+        {/* Search and Filter */}
+        <div className="card-header">
+          <input
+            type="text"
+            placeholder="Search Rider..."
+            className="search-bar"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button className="filter-btn">Filter</button>
+        </div>
+
+        {/* Riders Table */}
+        <div className="rider-table-container">
+          <table className="rider-table">
+            <thead>
+              <tr>
+                <th><input type="checkbox" /></th>
+                <th>S. No.</th>
+                <th>Rider Name</th>
+                <th>Tenure</th>
+                <th>Batch</th>
+                <th>Contract</th>
+                <th>Zone</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredRiders.length > 0 ? (
+                filteredRiders.map((rider, index) => (
+                  <tr key={rider.id}>
+                    <td><input type="checkbox" /></td>
+                    <td>{index + 1}</td>
+                    <td className="rider-info">
+                      <img src={rider.image} alt={rider.name} className="rider-img" />
+                      {rider.name}
+                    </td>
+                    <td>{rider.tenure}</td>
+                    <td>{rider.batch}</td>
+                    <td className={`contract ${rider.contract.toLowerCase()}`}>
+                      <div className="clr">
+                        {rider.contract}</div>
+                    </td>
+                    <td>{rider.zone}</td>
+                    <td className="action-cell">
+                      <button className="action-btn" onClick={() => handleMenuToggle(rider.id)}>⋮</button>
+                      {menuVisible === rider.id && (
+                        <div className="action-menu">
+                          <button>View</button>
+                          <button>Edit</button>
+                          <button>Block</button>
+                          <button>Delete</button>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="8" className="no-data">No riders found</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
 
-  </main>
+    </main>
   );
 };
 
