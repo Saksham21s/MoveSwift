@@ -2,7 +2,7 @@ import "../../../styles/style.min.css";
 import profilePic from '../../../assets/profile-img.webp';
 
 
-const OverviewPage = () => {
+const SettingsPage = () => {
  return (
      <main className="main-content">
        {/* Top row of overview and profile image */}
@@ -21,4 +21,4 @@ const OverviewPage = () => {
   );
 };
 
-export default OverviewPage;
+export default SettingsPage;

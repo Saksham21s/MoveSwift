@@ -1,0 +1,247 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+.dialog {
+    background-color: rgba(17, 81, 115, 1);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    width: 603px;
+    height: 463px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    justify-content: space-around;
+}
+
+.dialog-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.dialog-image img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.dialog-heading h3 {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 36px;
+    color: rgba(255, 215, 0, 1);
+    margin-bottom: 0;
+}
+
+.dialog-paragraph {
+    padding-inline: 10px;
+}
+
+.dialog-paragraph p {
+    color: white;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26.15px;
+    text-align: center;
+}
+
+.dialog-buttons-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.dialog-buttons {
+    margin: 0 10px;
+}
+
+.button {
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 134px;
+    height: 42px;
+    border-radius: 100px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.confirm {
+    background-color: rgba(255, 215, 0, 1);
+    color: rgb(0, 0, 0);
+}
+
+.confirm:hover {
+    background-color: rgba(255, 230, 51, 1);
+    color: rgb(50, 50, 50);
+}
+
+.cancel {
+    background-color: rgba(17, 81, 115, 1);
+    color: rgba(202, 198, 231, 1);
+    border: 1px solid rgba(202, 198, 231, 1);
+}
+
+.cancel:hover {
+    background-color: rgba(25, 98, 138, 1);
+    color: rgba(230, 226, 255, 1);
+    border-color: rgba(230, 226, 255, 1);
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: opacity 0.3s;
+}
+
+.close-button:hover {
+    opacity: 0.7;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    color: #ebeff5;
+    transition: color 0.3s;
+}
+
+.icon:hover {
+    color: #ffffff;
+}
+
+@media (max-width: 400px) {
+    .dialog {
+        min-width: 90%;
+        width: auto;
+        height: auto;
+    }
+}
+
+/*--------------------------------Add Rider Section Design Starts Here -----------------------------------*/
+.action-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.action-left p {
+    font-size: px;
+    font-weight: 00;
+    color:rgba(255, 215, 0, 1);
+}
+
+.action-right button {
+    padding: 10px 20px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.action-right button:hover {
+    background-color: #0056b3;
+}
+
+.form-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.image-upload {
+    margin-bottom: 20px;
+    text-align: center; /* Center the image upload area */
+}
+
+.image-upload input[type="file"] {
+    /* Larger file input button */
+    padding: 15px 25px; /* Adjust padding for size */
+    font-size: 16px; /* Adjust font size */
+    border: 1px dashed #ccc; /* Add a dashed border */
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #f8f8f8;
+}
+
+
+.image-upload img {
+    max-width: 200px;
+    height: auto;
+    margin-top: 10px;
+    display: block; /* Make image a block element */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.input-row input[type="text"],
+.input-row input[type="password"] {
+    flex: 1;
+    padding: 12px; /* Increased padding */
+    border: 1px solid #ccc;
+    border-radius: 8px; /* Increased border radius */
+    font-size: 16px; /* Larger font size */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.save-button {
+    padding: 12px 25px; /* Increased padding */
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 8px; /* Increased border radius */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px; /* Larger font size */
+}
+
+.save-button:hover {
+    background-color: #1e7e34;
+}
+
+@media (max-width: 768px) {
+    .input-row {
+        flex-direction: column;
+    }
+}

@@ -1,10 +1,12 @@
 import "../../../styles/style.min.css";
+import { useState } from "react";
+import ConfirmationDialog from "./ConfirmationDialog"
+import { useNavigate } from 'react-router-dom';
 import profilePic from '../../../assets/profile-img.webp';
 import newRider from '../../../assets/new-rider.png';
 import block from '../../../assets/block.png';
 import del from '../../../assets/del.png';
-import { useState } from "react";
-import { Link } from "react-router-dom";
+
 
 
 const OverviewPage = () => {
@@ -46,6 +48,38 @@ const OverviewPage = () => {
   const handleMenuToggle = (id) => {
     setMenuVisible(menuVisible === id ? null : id);
   };
+
+
+  const [showConfirm, setShowConfirm] = useState(false);
+    const [actionType, setActionType] = useState(null);
+
+    const handleActionClick = (type) => {
+        setActionType(type);
+        setShowConfirm(true);
+    };
+
+    const handleConfirm = () => {
+        if (actionType === 'block') {
+            // Handle block logic here
+            console.log("Blocking rider...");
+        } else if (actionType === 'delete') {
+            // Handle delete logic here
+            console.log("Deleting rider...");
+        }
+        setShowConfirm(false);
+        setActionType(null); 
+    };
+
+    const handleCancel = () => {
+        setShowConfirm(false);
+        setActionType(null); 
+    };
+
+    const navigate = useNavigate(); // Initializing useNavigate
+
+    const handleAddRiderClick = () => {
+        navigate('/add-rider'); // Navigating to /AddRider.jsx
+    };
   return (
     <main className="main-content">
       {/* Top row of overview and profile image */}
@@ -80,22 +114,30 @@ const OverviewPage = () => {
           </div>
           <div className="summary-item">
             <div>
-              <div className="new-rider">
+            <div className="new-rider" onClick={handleAddRiderClick}> {/* Add onClick handler */}
                 <img src={newRider} alt="New Rider" />
                 <span>Add New Rider</span>
-              </div>
-              <div className="new-rider-btn">
-                <Link to="/riders/delete" className="rider-btn-item" style={{ textDecoration: "none" }}>
-                  <img src={block} alt="Block" />
-                  <span>Block</span>
-                </Link>
-                <Link to="/riders/delete" className="rider-btn-item" style={{ textDecoration: "none" }}>
-                  <img src={del} alt="Delete" />
-                  <span>Delete</span>
-                </Link>
-              </div>
             </div>
-          </div>
+                <div className="new-rider-btn">
+                    <button onClick={() => handleActionClick('block')} className="rider-btn-item"> 
+                        <img src={block} alt="Block" />
+                        <span>Block</span>
+                    </button>
+                    <button onClick={() => handleActionClick('delete')} className="rider-btn-item">
+                        <img src={del} alt="Delete" />
+                        <span>Delete</span>
+                    </button>
+                </div>
+            </div>
+
+            {showConfirm && (
+                <ConfirmationDialog 
+                    actionType={actionType}
+                    onConfirm={handleConfirm} 
+                    onCancel={handleCancel} 
+                />
+            )}
+        </div>
         </div>
       </section>
 
@@ -172,10 +214,10 @@ const OverviewPage = () => {
                       <button className="action-btn" onClick={() => handleMenuToggle(rider.id)}>⋮</button>
                       {menuVisible === rider.id && (
                         <div className="action-menu">
-                          <button>View</button>
-                          <button>Edit</button>
-                          <button>Block</button>
-                          <button>Delete</button>
+                          <button onClick={() => handleActionClick('unblock')}>Unblock</button>
+                          <button onClick={() => handleActionClick('resume')}>Resume</button>
+                          <button  onClick={() => handleActionClick('block')}>Block</button>
+                          <button  onClick={() => handleActionClick('delete')}>Delete</button>
                         </div>
                       )}
                     </td>
