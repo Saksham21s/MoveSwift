@@ -85,7 +85,7 @@ const OverviewPage = () => {
                 <span>Add New Rider</span>
               </div>
               <div className="new-rider-btn">
-                <Link to="/riders/block" className="rider-btn-item" style={{ textDecoration: "none" }}>
+                <Link to="/riders/delete" className="rider-btn-item" style={{ textDecoration: "none" }}>
                   <img src={block} alt="Block" />
                   <span>Block</span>
                 </Link>
