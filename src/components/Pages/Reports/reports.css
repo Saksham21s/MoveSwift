@@ -1,0 +1,302 @@
+/*--------------------Riders Performance Section Starts Here --------------------------------*/
+.performances-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 12px;
+  }
+  
+  .performances-card {
+    background-color: rgba(255, 255, 255, 1);
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    flex: 1;
+    box-sizing: border-box;
+    border-radius: 12px;
+    margin-inline-end: 1px;
+    padding: 16px;
+  }
+  
+  .performances-card-body {
+    padding: 20px;
+  }
+  
+  .performances-data-card {
+    padding-block-start: 40px;
+  }
+  
+  .performances-card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(6, 7, 7);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 28px;
+    flex-wrap: wrap;
+  }
+  
+  .performances-card-title span {
+    margin-left: auto;
+    padding-right: 10px;
+  }
+  
+  .performances-card-title span a {
+    color: rgb(75, 75, 232);
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 14px;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .performances-card-title span a:hover {
+    color: darkblue;
+    text-decoration: underline;
+  }
+  
+  .performances-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .performances-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 12px;
+    font-weight: 400;
+    color: black;
+    font-size: 14px;
+    line-height: 20px;
+    border-bottom: 1px solid rgb(133, 135, 145);
+  }
+  
+  .performances-list li span {
+    color: rgb(133, 135, 145);
+    font-weight: 600;
+    font-size: 14px;
+    text-align: right;
+  }
+
+  .chart-card {
+    padding: 20px;
+    min-height: 250px;
+  }
+  
+
+  @media (max-width: 767px) {
+    .performances-grid {
+      flex-direction: column;
+      gap: 15px;
+      padding: 10px;
+    }
+  
+    .performances-card {
+      min-width: 100%;
+      padding: 12px; 
+    }
+  
+    .performances-card-title {
+      font-size: 16px;
+      line-height: 24px;
+    }
+  
+    .performances-card-body {
+      padding: 15px;
+    }
+  
+    .performances-list li {
+      font-size: 13px;
+      padding-block: 10px;
+    }
+  
+    .chart-card {
+      min-height: 220px;
+      padding: 15px;
+    }
+  }
+ /*--------------------Riders Performance Section ends Here --------------------------------*/
+
+ /*--------------------Riders Complaints Section Starts Here --------------------------------*/
+
+ .complaints-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 15px;
+    padding: 15px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+  }
+  
+  .filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .filter-buttons button {
+    width: 150px;
+    height: 50px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(17, 81, 115, 1);
+    border: none;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 27px;
+    color: whitesmoke;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  
+  .filter-buttons button:hover {
+    background-color: rgba(255, 215, 0, 0.8);
+    color: black;
+  }
+  
+  .filter-buttons button.active {
+    background-color: rgba(255, 215, 0, 1);
+    color: black;
+  }
+  
+  
+  .filter-search-section input {
+    width: 30%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+  }
+  
+  .complaints-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+  
+  .complaints-table th,
+  .complaints-table td {
+    color: #252733;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .complaints-table th {
+    color: #9fa2b4;
+    font-weight: 500;
+  }
+  
+  .rider-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .rider-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .complaint-status {
+    width: 120px;
+    height: 40px;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    padding: 8px;
+  }
+  
+  .complaint-status.resolved {
+    color: white;
+    background-color: rgba(41, 204, 151, 1);
+  }
+  
+  .complaint-status.unresolved {
+    color: white;
+    background-color: rgba(241, 43, 44, 1);
+  }
+  
+  
+  .dropdown {
+    position: relative;
+    text-align: end;
+  }
+  
+  .ellipsis-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    right: 10px;
+    top: 30px;
+    background: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    min-width: 100px;
+    z-index: 10;
+  }
+  
+  .dropdown-menu button {
+    padding: 10px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .dropdown-menu button:hover {
+    background: #f5f5f5;
+  }
+  
+  @media (max-width: 1024px) {
+    .filter-search-section {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .filter-search-section input {
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .complaints-table {
+      font-size: 14px;
+    }
+  
+    .complaints-table th,
+    .complaints-table td {
+      padding: 8px;
+    }
+  
+    .rider-img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  
+  
+
+  /*--------------------Riders Complaints Section ends Here --------------------------------*/

@@ -9,6 +9,7 @@ $cards-bg: rgba(255, 255, 255, 1);
 $card-heading: rgba(159, 162, 180, 1);
 $card-count: rgba(5, 63, 94, 1);
 $main-bg-color: rgba(5, 63, 94, 1);
+$active-dropdown-text-color:rgb(255, 255, 49);
 
 * {
   color: $sidebar-text-color;
@@ -69,42 +70,114 @@ html {
   .nav {
     list-style: none;
     padding: 0;
-
+  
     .nav-item {
       margin-bottom: 10px;
-
+  
       .nav-link {
         color: $sidebar-text-color;
         text-decoration: none;
         padding: 10px;
         display: flex;
         align-items: center;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-
+        transition: background-color 0.3s ease, transform 0.2s ease, color 0.2s ease;
+  
         span {
           margin-inline-start: 15px;
           transition: opacity $transition-speed ease;
         }
-
+  
+        .dropdown-arrow {
+          margin-left: auto;
+          transition: transform 0.3s ease;
+        }
+  
+        &.dropdown-toggle {
+          position: relative;
+  
+          &:after {
+            content: "\f105";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            margin-left: auto;
+            transition: transform 0.3s ease;
+          }
+  
+          &.open:after {
+            transform: rotate(90deg);
+          }
+        }
+  
         &:hover {
           background-color: $sidebar-bg-color-hover;
           color: white;
           transform: translateX(5px);
         }
-
+  
+        &.active, 
+        &.dropdown-active {
+          color: $active-dropdown-text-color !important;
+        }
+  
         i {
           font-size: 18px;
+          margin-right: 10px;
+        }
+      }
+  
+      .dropdown-menu {
+        max-height: 0;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        background: $sidebar-bg-color;
+        transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+  
+        &.show {
+          max-height: 300px; 
+          padding: 5px 0;
+        }
+  
+        li {
+          list-style: none;
+          padding: 0;
+        }
+  
+        .dropdown-item {
+          display: flex;
+          align-items: center;
+          padding: 10px 32px;
+          font-size: 16px;
+          color: $sidebar-text-color;
+          text-decoration: none;
+          transition: background 0.2s ease, color 0.2s ease;
+  
+          &:hover {
+            background: $sidebar-bg-color-hover;
+            color: white;
+          }
+  
+          &.active { 
+            color: $active-dropdown-text-color !important;
+          }
+  
+          span {
+            display: block;
+            margin-inline-start: 10px;
+          }
         }
       }
     }
   }
+  
 
   .toggle-btn {
     display: block;
     position: absolute;
     right: -20px;
-    top: 35%;
+    top: 50%;
     background-color: $sidebar-bg-color;
+    border: 1px solid rgb(237, 229, 229);
     color: white;
     padding: 12px;
     border-radius: 50%;
@@ -216,8 +289,6 @@ html {
     padding: 0;
     z-index: 1050;
   }
-
- 
 }
 
 //---------------------------------------------------Aside Page ends Here-------------------------------------------------------------//
@@ -273,11 +344,7 @@ html {
   margin-inline-end: 11px;
 
   .name {
-    color: $sidebar-text-color;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.2px;
+    display: none;
   }
 
   .img-container {
@@ -294,36 +361,34 @@ html {
 
 @media (max-width: 767px) {
   .overview-container {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     padding: 0 15px;
+    padding-block-start: 60px;
   }
 
   .page-overview {
-    display: block;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 10px;
-    position: relative;
-    padding-top: 60px;
+    display: flex;
+    align-items: center;
+    width: auto;
+    margin-bottom: 0;
+    padding-top: 20px;
   }
 
   .main-top-profile {
-    display: none;
+    display: flex;
   }
 
   .page-title {
-    position: relative;
     font-size: 18px;
-    padding-block: 30px 20px;
-    top: 0;
-    z-index: 1;
+    padding-block: 20px;
   }
 }
 
 @media (min-width: 768px) {
   .overview-container {
     flex-direction: row;
-    /* Row layout on larger screens */
   }
 
   .page-overview {
@@ -383,8 +448,11 @@ html {
   @media (max-width: 767px) {
     .card-item {
       width: 50%;
-      .card{
+      .card {
         border-radius: 8px;
+        .card-body {
+          padding-inline: 5px;
+        }
       }
     }
   }
@@ -392,7 +460,7 @@ html {
   @media (min-width: 768px) {
     .card-item {
       width: 25%;
-      .card{
+      .card {
         border-radius: 8px;
       }
     }
@@ -411,130 +479,127 @@ html {
   padding: 10px;
 
   .card {
-      background-color: $cards-bg;
-      border: none;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-      border-radius: 12px; 
-      overflow: hidden; 
+    background-color: $cards-bg;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
 
-      .card-body {
-          padding: 25px; 
+    .card-body {
+      padding: 25px;
 
-          .card-title {
-              color: #333;
-              font-weight: 700;
-              margin-bottom: 10px; 
-              font-size: 22px; 
-              line-height: 1.3; 
-              letter-spacing: 0.5px;
+      .card-title {
+        color: #333;
+        font-weight: 700;
+        margin-bottom: 10px;
+        font-size: 22px;
+        line-height: 1.3;
+        letter-spacing: 0.5px;
 
-              p {
-                  font-weight: 400;
-                  font-size: 14px;
-                  line-height: 1.4;
-                  letter-spacing: 0.2px;
-                  color: #666;
-              }
-          }
-
-          .chart-section { 
-              height: 400px;
-              width: 90%; 
-              margin: 0 auto 20px;
-          }
-
-
-          .img-tp-txt {
-              display: flex;     
-              justify-content: center;
-              margin-bottom: 25px; 
-
-              span {
-                  margin: 0 15px;    
-                  display: inline-flex; 
-                  align-items: center; 
-              }
-
-              #box-clr1 {
-                  background-color: #3498db; 
-                  height: 8px;
-                  width: 15px;      
-                  margin-right: 5px;
-                  border-radius: 3px; 
-              }
-
-              #box-clr2 {
-                  background-color: #FFB7D5; 
-                  height: 8px;   
-                  width: 15px; 
-                  margin-right: 5px;
-                  border-radius: 3px; 
-
-              }
-          }
-
-          .status-container {
-              display: flex;
-              flex-direction: column; 
-              align-items: stretch;
-
-              .cash-details {
-                  display: grid;
-                  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
-                  gap: 20px; 
-                  text-align: left;
-
-                  .detail {
-                      padding: 15px;
-                      color: #777;
-                      display: flex;
-                      flex-direction: column;
-                      text-align: center;
-
-                      &:last-child {
-                          border-bottom: none;
-                      }
-
-                      span {
-                          color: #333;
-                          padding-top: 18px;
-                          font-weight: 600;
-                          font-size: 18px;
-                          line-height: 1.4;
-                          letter-spacing: 0.2px;
-                      }
-                  }
-              }
-          }
-
-          @media screen and (min-width: 769px) {
-              .status-container {
-                  flex-direction: row; 
-                  align-items: flex-start; 
-                  gap: 30px; 
-              }
-              .cash-details {
-                  grid-template-columns: repeat(2, 1fr); 
-              }
-          }
-
-          @media screen and (max-width: 768px) {
-              .img-tp-txt {
-                  flex-direction: column;
-                  align-items: center;   
-                  margin-bottom: 20px;
-              }
-              .status-container {
-                  flex-direction: column;
-              }
-              .cash-details {
-                  grid-template-columns: 1fr; 
-              }
-          }
+        p {
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 1.4;
+          letter-spacing: 0.2px;
+          color: #666;
+        }
       }
+
+      .chart-section {
+        height: 400px;
+        width: 90%;
+        margin: 0 auto 20px;
+      }
+
+      .img-tp-txt {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 25px;
+
+        span {
+          margin: 0 15px;
+          display: inline-flex;
+          align-items: center;
+        }
+
+        #box-clr1 {
+          background-color: #3498db;
+          height: 8px;
+          width: 15px;
+          margin-right: 5px;
+          border-radius: 3px;
+        }
+
+        #box-clr2 {
+          background-color: #ffb7d5;
+          height: 8px;
+          width: 15px;
+          margin-right: 5px;
+          border-radius: 3px;
+        }
+      }
+
+      .status-container {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        .cash-details {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 20px;
+          text-align: left;
+
+          .detail {
+            padding: 15px;
+            color: #777;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            span {
+              color: #333;
+              padding-top: 18px;
+              font-weight: 600;
+              font-size: 18px;
+              line-height: 1.4;
+              letter-spacing: 0.2px;
+            }
+          }
+        }
+      }
+
+      @media screen and (min-width: 769px) {
+        .status-container {
+          flex-direction: row;
+          align-items: flex-start;
+          gap: 30px;
+        }
+        .cash-details {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media screen and (max-width: 768px) {
+        .img-tp-txt {
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 20px;
+        }
+        .status-container {
+          flex-direction: column;
+        }
+        .cash-details {
+          grid-template-columns: 1fr;
+        }
+      }
+    }
   }
 }
-
 
 /* ----------------Top Lists Styles ---------------*/
 .top-lists {
@@ -621,8 +686,6 @@ html {
   }
 }
 
-
-
 //---------------------------------------------------Overview Page ends Here-------------------------------------------------------------//
 
 //---------------------------------------------------Riders Page Starts Here-------------------------------------------------------------//
@@ -633,6 +696,7 @@ html {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    justify-content: center;
   }
 
   .summary-item {
@@ -671,13 +735,18 @@ html {
     }
   }
 
-  // Media queries for responsiveness
+  // ✅ Mobile View Fix (Top 3 cards in one row, 4th in next row centered)
   @media (max-width: 767px) {
     .summary-item {
-      width: 48%; 
+      width: calc(33.33% - 7px);
+    }
+
+    .summary-item:nth-child(4) {
+      width: 74%;
+      margin: 0 auto;
     }
   }
- 
+
   @media (min-width: 768px) {
     .summary-item {
       width: 24%;
@@ -759,7 +828,6 @@ html {
       line-height: 24px;
       letter-spacing: 0.4px;
       padding-inline-start: 10px;
-      
     }
   }
 }
@@ -943,7 +1011,7 @@ html {
           width: 100%;
 
           &:hover {
-            background:$sidebar-bg-color-hover;
+            background: $sidebar-bg-color-hover;
           }
         }
       }
@@ -1027,13 +1095,13 @@ html {
   justify-content: center;
   align-items: center;
   width: 603px;
-height: 463px;
-border-radius: 10px;
-border: 2px solid orange;
-  flex-direction: column; 
+  height: 463px;
+  border-radius: 10px;
+  border: 2px solid orange;
+  flex-direction: column;
   padding: 20px;
   position: fixed;
-  top: 20%; 
+  top: 20%;
   left: 35%;
 }
 
@@ -1041,7 +1109,7 @@ border: 2px solid orange;
   max-width: 100%;
   height: auto;
   border-radius: 8px;
-  margin-bottom: 15px; 
+  margin-bottom: 15px;
 }
 
 .text-container {
@@ -1071,8 +1139,6 @@ border: 2px solid orange;
   background-color: #0056b3;
 }
 
-
-
 //---------------------------------------------------Riders Page ends Here-------------------------------------------------------------//
 
 //---------------------------------------------------Vendors Page Starts Here-------------------------------------------------------------//
@@ -1087,15 +1153,15 @@ border: 2px solid orange;
   border: 2px solid orange;
   border-radius: 8px;
 
-  #img-aeroplane{
-    img{
-        width: 120px;
-        height: 120px;
-        object-fit: cover;
-        flex-shrink: 0;
+  #img-aeroplane {
+    img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      flex-shrink: 0;
     }
   }
-  .text{
+  .text {
     color: white;
     font-weight: 600;
     font-size: 24px;
@@ -1104,23 +1170,23 @@ border: 2px solid orange;
     text-align: center;
     margin-block-end: 25px;
   }
-  .go-overview{
-    border: 2px solid  rgba(202, 198, 231, 1); text-decoration: none !important;
-font-weight: 500;
-font-size: 16px;
-line-height: 18px;
-letter-spacing: 0.4px;
-padding: 20px;
-margin-block-end: 25px;
-color: rgba(202, 198, 231, 1);
-border-radius: 8px;
-cursor: pointer;
+  .go-overview {
+    border: 2px solid rgba(202, 198, 231, 1);
+    text-decoration: none !important;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+    letter-spacing: 0.4px;
+    padding: 20px;
+    margin-block-end: 25px;
+    color: rgba(202, 198, 231, 1);
+    border-radius: 8px;
+    cursor: pointer;
   }
 
-
-  @media screen and (max-width: 768px){
-    .text{
-        font-size: 18px;
+  @media screen and (max-width: 768px) {
+    .text {
+      font-size: 18px;
     }
   }
 }

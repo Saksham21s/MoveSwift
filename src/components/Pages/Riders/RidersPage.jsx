@@ -6,7 +6,6 @@ import newRider from '../../../assets/new-rider.png';
 import block from '../../../assets/block.png';
 import del from '../../../assets/del.png';
 import MainTop from '../Navbar/MainTop';
-{/* <MainTop title="Riders" /> */}
 
 
 
@@ -79,7 +78,7 @@ const OverviewPage = () => {
     const navigate = useNavigate(); // Initializing useNavigate
 
     const handleAddRiderClick = () => {
-        navigate('/add-rider'); // Navigating to /AddRider.jsx
+        navigate('/add-rider'); 
     };
   return (
     <main className="main-content">

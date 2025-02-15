@@ -119,11 +119,11 @@
   cursor: pointer;
   padding: 5px;
   transition: opacity 0.3s;
- color: orange;
+  color: orange;
 }
 
 .close-button:hover {
-   background-color:  orange;
+   background-color: orange;
    color: #fff;
 }
 
@@ -138,13 +138,22 @@
   color: #ffffff;
 }
 
-@media (max-width: 400px) {
+/*Mobile-Friendly Margin Fix */
+@media (max-width: 480px) {
   .dialog {
-    min-width: 90%;
-    width: auto;
-    height: auto;
+    width: 90%;
+    max-width: 380px;
+    margin: 20px; 
   }
 }
+
+@media (max-width: 360px) {
+  .dialog {
+    max-width: 340px;
+    margin: 15px;
+  }
+}
+
 
 /*--------------------------------Add Rider Section Design Starts Here -----------------------------------*/
 .action-container {
@@ -154,6 +163,13 @@
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
+  width: 100%;
+}
+
+.action-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
 .action-left p {
@@ -162,14 +178,21 @@
   color: rgba(255, 215, 0, 1);
 }
 
+.action-right {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
 .action-right button {
-  padding: 8px;
+  padding: 8px 12px;
   color: rgba(255, 215, 0, 1);
   background-color: rgba(5, 63, 94, 1);
   border: 1px solid rgba(255, 215, 0, 1);
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
+  white-space: nowrap;
 }
 
 .action-right button:hover {
@@ -178,17 +201,35 @@
   border-color: rgba(255, 230, 51, 1);
 }
 
+@media (max-width: 768px) {
+  .action-container {
+    padding: 12px;
+  }
+
+  .action-left p {
+    font-size: 14px;
+  }
+
+  .action-left,
+  .action-right {
+    flex: 1;
+  }
+
+  .action-right {
+    justify-content: flex-end;
+  }
+}
+
+
 .form-container {
   padding: 25px;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-inline-start: 15px;
-  margin-inline-end: 20px;
-  padding-inline: 160px;
-  width: 1080px;
-  height: 650px;
-  margin-block-end: 30px;
+  width: 100%;
+  max-width: 1080px;
+  height: auto;
+  margin: 0 auto 30px;
 }
 
 .image-upload {
@@ -209,7 +250,7 @@
   max-width: 120px;
   height: 120px;
   margin-top: 10px;
-  display: flex;
+  display: block;
   margin-left: auto;
   margin-right: auto;
   object-fit: cover;
@@ -225,69 +266,27 @@
 
 .input-group {
   flex: 1;
-
-  label {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 14px;
-    color: rgb(170, 170, 170);
-  }
-
-  input {
-    margin-top: 8px;
-    padding-inline: 10px;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    color: rgba(175, 182, 187, 1);
-  }
 }
 
-.input-row label {
-  font-weight: bold;
-  text-align: left;
+.input-group label {
+  font-weight: 400;
+  font-size: 14px;
+  color: rgb(170, 170, 170);
 }
 
-.input-row input[type="text"] {
+.input-group input {
+  margin-top: 8px;
+  padding-inline: 10px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(175, 182, 187, 1);
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 16px;
   box-sizing: border-box;
-}
-
-.input-row input[type="number"] {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-  box-sizing: border-box;
-  height: 48px; 
-}
-
-.input-group input[type="password"] {
-  width: 49%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-  box-sizing: border-box;
-}
-
-.input-row input[type="date"] {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-  box-sizing: border-box;
-  height: 48px;
-}
-
-.input-row input[type="password"] {
-  max-width: 100%;
 }
 
 .input-row select {
@@ -299,7 +298,6 @@
   box-sizing: border-box;
   height: 48px;
   margin-top: 10px;
-
 }
 
 .button-container {
@@ -309,7 +307,7 @@
 
 .save-button {
   padding: 12px 25px;
-  background-color:rgba(17, 81, 115, 1);
+  background-color: rgba(17, 81, 115, 1);
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -321,19 +319,22 @@
 }
 
 .save-button:hover {
-  background-color:rgb(45, 116, 154);
+  background-color: rgb(45, 116, 154);
 }
 
 @media (max-width: 768px) {
-  .input-row {
-    flex-direction: column;
-    align-items: flex-start;
+  .form-container {
+    padding: 20px;
+    width: 90%;
   }
 
-  .form-container {
-    padding-inline: 20px;
+  .input-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .input-group {
     width: 100%;
-    height: auto;
   }
 
   .image-upload img {
@@ -343,65 +344,61 @@
 
   .action-container {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    gap: 10px;
   }
 
   .action-left p {
     font-size: 14px;
+    text-align: center;
+  }
+
+  .button-container {
+    text-align: center;
+  }
+
+  .save-button {
+    width:max-content;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    padding: 15px;
+    width: 95%;
   }
 
   .input-row {
-    gap: 10px;
+    gap: 8px;
   }
 
-  .input-group {
-    width: 100%;
+  .image-upload img {
+    max-width: 80px;
+    height: 80px;
   }
 }
 
-
-
-.error {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-}
-
-/* Background blur effect when success message is visible */
-.main-content.blur-background {
-    position: relative;
-}
-
-.main-content.blur-background::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3); 
-    backdrop-filter: blur(3px); 
-    z-index: 5;
-}
-
-/* Success popup */
 .success-popup {
-    position: fixed;
-    top: 50%;
-    left: 60%;
-    transform: translate(-50%, -50%);
-    background:rgba(17, 81, 115, 1);
-    border: 2px solid orange;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 10; 
-    font-size: 16px;
-    font-weight: bold;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(17, 81, 115, 1);
+  border: 2px solid orange;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  font-size: 16px;
+  font-weight: bold;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
 
-    .dialog-paragraph{
-        p{
-            color: White;
-        }
-    }
+@media (max-width: 480px) {
+  .success-popup {
+    width: 95%;
+    max-width: 350px;
+  }
 }

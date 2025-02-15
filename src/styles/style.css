@@ -62,26 +62,84 @@ html {
   padding: 10px;
   display: flex;
   align-items: center;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease, color 0.2s ease;
 }
 .sidebar .nav .nav-item .nav-link span {
   margin-inline-start: 15px;
   transition: opacity 0.3s ease ease;
+}
+.sidebar .nav .nav-item .nav-link .dropdown-arrow {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+.sidebar .nav .nav-item .nav-link.dropdown-toggle {
+  position: relative;
+}
+.sidebar .nav .nav-item .nav-link.dropdown-toggle:after {
+  content: "\f105";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+.sidebar .nav .nav-item .nav-link.dropdown-toggle.open:after {
+  transform: rotate(90deg);
 }
 .sidebar .nav .nav-item .nav-link:hover {
   background-color: rgb(42, 112, 150);
   color: white;
   transform: translateX(5px);
 }
+.sidebar .nav .nav-item .nav-link.active, .sidebar .nav .nav-item .nav-link.dropdown-active {
+  color: rgb(255, 255, 49) !important;
+}
 .sidebar .nav .nav-item .nav-link i {
   font-size: 18px;
+  margin-right: 10px;
+}
+.sidebar .nav .nav-item .dropdown-menu {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  background: rgb(17, 81, 115);
+  transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+}
+.sidebar .nav .nav-item .dropdown-menu.show {
+  max-height: 300px;
+  padding: 5px 0;
+}
+.sidebar .nav .nav-item .dropdown-menu li {
+  list-style: none;
+  padding: 0;
+}
+.sidebar .nav .nav-item .dropdown-menu .dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 32px;
+  font-size: 16px;
+  color: rgb(164, 166, 179);
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.sidebar .nav .nav-item .dropdown-menu .dropdown-item:hover {
+  background: rgb(42, 112, 150);
+  color: white;
+}
+.sidebar .nav .nav-item .dropdown-menu .dropdown-item.active {
+  color: rgb(255, 255, 49) !important;
+}
+.sidebar .nav .nav-item .dropdown-menu .dropdown-item span {
+  display: block;
+  margin-inline-start: 10px;
 }
 .sidebar .toggle-btn {
   display: block;
   position: absolute;
   right: -20px;
-  top: 35%;
+  top: 50%;
   background-color: rgb(17, 81, 115);
+  border: 1px solid rgb(237, 229, 229);
   color: white;
   padding: 12px;
   border-radius: 50%;
@@ -230,11 +288,7 @@ html {
   margin-inline-end: 11px;
 }
 .main-top-profile .name {
-  color: rgb(164, 166, 179);
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0.2px;
+  display: none;
 }
 .main-top-profile .img-container .rounded-img {
   width: 60px;
@@ -247,32 +301,30 @@ html {
 
 @media (max-width: 767px) {
   .overview-container {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     padding: 0 15px;
+    padding-block-start: 60px;
   }
   .page-overview {
-    display: block;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 10px;
-    position: relative;
-    padding-top: 60px;
+    display: flex;
+    align-items: center;
+    width: auto;
+    margin-bottom: 0;
+    padding-top: 20px;
   }
   .main-top-profile {
-    display: none;
+    display: flex;
   }
   .page-title {
-    position: relative;
     font-size: 18px;
-    padding-block: 30px 20px;
-    top: 0;
-    z-index: 1;
+    padding-block: 20px;
   }
 }
 @media (min-width: 768px) {
   .overview-container {
     flex-direction: row;
-    /* Row layout on larger screens */
   }
   .page-overview {
     width: auto;
@@ -327,6 +379,9 @@ html {
   }
   .summary-cards .card-item .card {
     border-radius: 8px;
+  }
+  .summary-cards .card-item .card .card-body {
+    padding-inline: 5px;
   }
 }
 @media (min-width: 768px) {
@@ -396,7 +451,7 @@ html {
   border-radius: 3px;
 }
 .cash-status .card .card-body .img-tp-txt #box-clr2 {
-  background-color: #FFB7D5;
+  background-color: #ffb7d5;
   height: 8px;
   width: 15px;
   margin-right: 5px;
@@ -538,6 +593,7 @@ html {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: center;
 }
 .summary-cards .summary-item {
   padding: 10px;
@@ -573,7 +629,11 @@ html {
 }
 @media (max-width: 767px) {
   .summary-cards .summary-item {
-    width: 48%;
+    width: calc(33.33% - 7px);
+  }
+  .summary-cards .summary-item:nth-child(4) {
+    width: 74%;
+    margin: 0 auto;
   }
 }
 @media (min-width: 768px) {

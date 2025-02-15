@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';  // ✅ Import PropTypes
+import PropTypes from 'prop-types'; 
 import profilePic from '../../../assets/profile-img.webp';
 
 const MainTop = ({ title }) => {

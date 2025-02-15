@@ -57,6 +57,7 @@ const ProfilePage = () => {
           <div className="profile-card profile-card4"><span>Acceptance Rate</span><h2>78.4%</h2></div>
         </div>
       </div>
+      
     </main>
   );
 };
