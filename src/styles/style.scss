@@ -26,272 +26,6 @@ html {
   overflow-x: hidden;
 }
 
-//---------------------------------------------------Aside Section Starts Here-------------------------------------------------------------//
-.sidebar {
-  background: $sidebar-bg-color;
-  width: $sidebar-width;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding: 20px;
-  z-index: 1050;
-  transition: all $transition-speed ease;
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-block: 10px;
-
-    .img-logo {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      .logo-img {
-        height: 90px;
-        width: 90px;
-        border-radius: 50%;
-        object-fit: cover;
-        flex-shrink: 0;
-      }
-    }
-
-    .logo-text {
-      color: white;
-      font-weight: 700;
-      font-size: 20px;
-      line-height: 30px;
-      transition: opacity $transition-speed ease;
-    }
-  }
-
-  .nav {
-    list-style: none;
-    padding: 0;
-  
-    .nav-item {
-      margin-bottom: 10px;
-  
-      .nav-link {
-        color: $sidebar-text-color;
-        text-decoration: none;
-        padding: 10px;
-        display: flex;
-        align-items: center;
-        transition: background-color 0.3s ease, transform 0.2s ease, color 0.2s ease;
-  
-        span {
-          margin-inline-start: 15px;
-          transition: opacity $transition-speed ease;
-        }
-  
-        .dropdown-arrow {
-          margin-left: auto;
-          transition: transform 0.3s ease;
-        }
-  
-        &.dropdown-toggle {
-          position: relative;
-  
-          &:after {
-            content: "\f105";
-            font-family: "Font Awesome 5 Free";
-            font-weight: 900;
-            margin-left: auto;
-            transition: transform 0.3s ease;
-          }
-  
-          &.open:after {
-            transform: rotate(90deg);
-          }
-        }
-  
-        &:hover {
-          background-color: $sidebar-bg-color-hover;
-          color: white;
-          transform: translateX(5px);
-        }
-  
-        &.active, 
-        &.dropdown-active {
-          color: $active-dropdown-text-color !important;
-        }
-  
-        i {
-          font-size: 18px;
-          margin-right: 10px;
-        }
-      }
-  
-      .dropdown-menu {
-        max-height: 0;
-        overflow: hidden;
-        padding: 0;
-        margin: 0;
-        background: $sidebar-bg-color;
-        transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
-  
-        &.show {
-          max-height: 300px; 
-          padding: 5px 0;
-        }
-  
-        li {
-          list-style: none;
-          padding: 0;
-        }
-  
-        .dropdown-item {
-          display: flex;
-          align-items: center;
-          padding: 10px 32px;
-          font-size: 16px;
-          color: $sidebar-text-color;
-          text-decoration: none;
-          transition: background 0.2s ease, color 0.2s ease;
-  
-          &:hover {
-            background: $sidebar-bg-color-hover;
-            color: white;
-          }
-  
-          &.active { 
-            color: $active-dropdown-text-color !important;
-          }
-  
-          span {
-            display: block;
-            margin-inline-start: 10px;
-          }
-        }
-      }
-    }
-  }
-  
-
-  .toggle-btn {
-    display: block;
-    position: absolute;
-    right: -20px;
-    top: 50%;
-    background-color: $sidebar-bg-color;
-    border: 1px solid rgb(237, 229, 229);
-    color: white;
-    padding: 12px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 1060;
-    font-size: 22px;
-    transform: translateX(-100%);
-    transition: all $transition-speed ease;
-
-    /* Hide toggle button on mobile */
-    @media (max-width: 768px) {
-      display: none;
-    }
-  }
-
-  .hamburger {
-    display: none;
-
-    /* Show hamburger only on mobile */
-    @media (max-width: 768px) {
-      display: block;
-      position: absolute;
-      right: 15px;
-      top: 15px;
-      background-color: $sidebar-bg-color;
-      color: white;
-      padding: 12px;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 1060;
-      font-size: 22px;
-    }
-  }
-
-  &.collapsed {
-    width: $collapsed-sidebar-width;
-
-    .logo-text {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .nav-link span {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .toggle-btn {
-      transform: rotate(180deg);
-    }
-  }
-
-  &.open .nav-item {
-    display: block;
-  }
-}
-
-// Mobile view: Sidebar and content behavior
-@media (max-width: 768px) {
-  .sidebar {
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    padding: 0;
-    z-index: 1050;
-
-    .logo {
-      padding-left: 5px;
-    }
-
-    .nav-item {
-      display: none;
-    }
-
-    &.open .nav-item {
-      display: block;
-      position: relative;
-      left: 40%;
-    }
-  }
-
-  .main-content {
-    padding-left: 0;
-  }
-}
-
-@media (min-width: 769px) {
-  .sidebar {
-    position: fixed;
-    width: $sidebar-width;
-    height: 100vh;
-  }
-
-  .sidebar .toggle-btn {
-    display: block;
-    font-size: 22px;
-  }
-
-  .sidebar.collapsed {
-    width: $collapsed-sidebar-width;
-  }
-}
-
-@media (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    width: 100%;
-    height: auto;
-    padding: 0;
-    z-index: 1050;
-  }
-}
-
-//---------------------------------------------------Aside Page ends Here-------------------------------------------------------------//
 
 //---------------------------------------------------Overview Page Starts Here-------------------------------------------------------------//
 
@@ -303,9 +37,8 @@ html {
   transition: all $transition-speed ease;
 
   @media (max-width: 768px) {
-    margin-left: 0;
-    padding-inline: 15px;
-    padding-block: 25px 15px;
+    padding-inline: 10px;
+    padding-block: 15px 15px;
   }
 
   @media (min-width: 769px) {
@@ -314,7 +47,6 @@ html {
   }
 }
 
-/* Overview and profile image section */
 .overview-container {
   display: flex;
   justify-content: space-between;
@@ -663,7 +395,6 @@ html {
           color: black;
           font-size: 14px;
           line-height: 20px;
-          border-bottom: 1px solid rgb(133, 135, 145);
 
           span {
             color: rgb(133, 135, 145);
@@ -734,8 +465,6 @@ html {
       }
     }
   }
-
-  // ✅ Mobile View Fix (Top 3 cards in one row, 4th in next row centered)
   @media (max-width: 767px) {
     .summary-item {
       width: calc(33.33% - 7px);
@@ -754,9 +483,9 @@ html {
   }
 
   .summary-box:hover {
+    background-color: rgba(221, 226, 255, 1);
     transform: translateY(-10px);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
   }
 
   .new-rider {

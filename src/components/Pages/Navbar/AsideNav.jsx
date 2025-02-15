@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "../../../styles/style.min.css";
+import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartBar,
@@ -12,51 +12,40 @@ import {
   faSignOutAlt,
   faChevronRight,
   faBars,
+  faTachometerAlt,
+  faExclamationTriangle,
+  faTools,
+  faDownload
 } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../../assets/fullship-logo.png";
 
 const AsideSection = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isReportsOpen, setIsReportsOpen] = useState(false);
   const location = useLocation();
 
   const dropdownLinks = [
-    { path: "/reports/performances", label: "Performances" },
-    { path: "/reports/complaints", label: "Complaints" }, 
-    { path: "/reports/equipments", label: "Equipments" },
-    { path: "/reports/download", label: "Download Reports" },
-];
-
-  const isDropdownActive = dropdownLinks.some((link) => location.pathname === link.path);
+    { path: "/reports/performances", label: "Performances", icon: faTachometerAlt },
+    { path: "/reports/complaints", label: "Complaints", icon: faExclamationTriangle },
+    { path: "/reports/equipments", label: "Equipments", icon: faTools },
+    { path: "/reports/download", label: "Download Reports", icon: faDownload },
+  ];
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
   const toggleMobileSidebar = () => {
-    setIsMobileOpen(!isMobileOpen);
+    setIsMobileOpen((prev) => !prev);
   };
 
-  const toggleDropdown = (e) => {
-    e.preventDefault();
-    setIsDropdownOpen((prev) => !prev);
+  const toggleReports = () => {
+    setIsReportsOpen((prev) => !prev);
   };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!event.target.closest(".nav-item.dropdown")) {
-        setIsDropdownOpen(false);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
 
   return (
-    <aside
-      className={`sidebar ${isSidebarOpen ? "" : "collapsed"} ${isMobileOpen ? "open" : ""}`}
-    >
+    <aside className={`sidebar ${isSidebarOpen ? "" : "collapsed"} ${isMobileOpen ? "open" : ""}`}>
       <Link to="/" style={{ textDecoration: "none" }}>
         <div className="logo">
           <div className="img-logo">
@@ -86,42 +75,24 @@ const AsideSection = () => {
               <FontAwesomeIcon icon={faMotorcycle} /> <span>Riders</span>
             </Link>
           </li>
-
           <li className="nav-item">
             <Link to="/vendors" className="nav-link">
               <FontAwesomeIcon icon={faStore} /> <span>Vendors</span>
             </Link>
           </li>
-
-          <li className={`nav-item dropdown ${isDropdownOpen ? "show" : ""}`}>
-            <Link
-              to="#"
-              className={`nav-link ${isDropdownActive ? "active-dropdown" : ""}`}
-              onClick={toggleDropdown}
-            >
+          <li className="nav-item" onClick={toggleReports} style={{ cursor: "pointer" }}>
+            <span className="nav-link">
               <FontAwesomeIcon icon={faFileAlt} /> <span>Reports</span>
-              <FontAwesomeIcon
-                icon={faChevronRight}
-                className={`dropdown-arrow ${isDropdownOpen ? "open" : ""}`}
-              />
-            </Link>
-
-            {isDropdownOpen && (
-              <ul className="dropdown-menu show">
-                {dropdownLinks.map((link) => (
-                  <li key={link.path}>
-                    <Link
-                      to={link.path}
-                      className={`dropdown-item ${location.pathname === link.path ? "active" : ""}`}
-                    >
-                      <span>{link.label}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
+              <FontAwesomeIcon icon={faChevronRight} className={`dropdown-arrow ${isReportsOpen ? "open" : ""}`} />
+            </span>
           </li>
-
+          {isReportsOpen && dropdownLinks.map((link) => (
+            <li key={link.path} className={`nav-item ${location.pathname === link.path ? "active" : ""}`}>
+              <Link to={link.path} className="nav-link">&nbsp;&nbsp;&nbsp;
+                <FontAwesomeIcon icon={link.icon} /> <span>{link.label}</span>
+              </Link>
+            </li>
+          ))}
           <li className="nav-item">
             <Link to="/files" className="nav-link">
               <FontAwesomeIcon icon={faFolder} /> <span>Files</span>

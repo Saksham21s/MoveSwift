@@ -93,7 +93,7 @@ const OverviewPage = () => {
             </div>
           </div>
           <div className="summary-item">
-            <div className="summary-box" style={{ backgroundColor: 'rgba(221, 226, 255, 1)' }}>
+            <div className="summary-box">
               <div className="summary-body" style={{ color: 'black' }}>Active Riders<span className="summary-count">126</span></div>
             </div>
           </div>

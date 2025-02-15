@@ -1,10 +1,11 @@
 import "../../../styles/style.min.css";
+import "./overview.css";
 import { Bar, } from "react-chartjs-2";
 import MainTop from '../Navbar/MainTop';
-import { Chart as ChartJS, BarElement, LineElement, PointElement, CategoryScale, LinearScale,LineController, Tooltip, Legend, Filler } from "chart.js";
+import { Chart as ChartJS, BarElement, LineElement, PointElement, CategoryScale, LinearScale, LineController, Tooltip, Legend, Filler } from "chart.js";
 import PropTypes from 'prop-types';
 
-ChartJS.register(BarElement, LineElement, PointElement, CategoryScale, LinearScale, LineController,Tooltip, Legend, Filler);
+ChartJS.register(BarElement, LineElement, PointElement, CategoryScale, LinearScale, LineController, Tooltip, Legend, Filler);
 
 const CashStatus = ({ actualCash, receivedCash }) => {
     const balanceCash = actualCash - receivedCash;
@@ -17,33 +18,33 @@ const CashStatus = ({ actualCash, receivedCash }) => {
     const chartData = {
         labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         datasets: [
-          {
-            type: 'bar', 
-            label: "Received Cash",
-            data: weeklyReceivedCash,
-            backgroundColor: "#FFB7D5",
-            borderColor: '#FF99C2',
-            borderWidth: 2,
-            borderRadius: 8,
-            barPercentage: 0.7,
-            categoryPercentage: 0.6,
-          },
-          {
-            type: 'line', 
-            label: "Actual Cash",
-            data: weeklyActualCash,
-            borderColor: "#3498db",
-            backgroundColor: 'rgba(111, 189, 241, 0.2)',
-            fill: true,
-            tension: 0.4,
-            pointRadius: 6,
-            pointBackgroundColor: "#3498db",
-            pointBorderColor: 'white',
-            pointBorderWidth: 2,
-          }
+            {
+                type: 'bar',
+                label: "Received Cash",
+                data: weeklyReceivedCash,
+                backgroundColor: "#FFB7D5",
+                borderColor: '#FF99C2',
+                borderWidth: 2,
+                borderRadius: 8,
+                barPercentage: 0.7,
+                categoryPercentage: 0.6,
+            },
+            {
+                type: 'line',
+                label: "Actual Cash",
+                data: weeklyActualCash,
+                borderColor: "#3498db",
+                backgroundColor: 'rgba(111, 189, 241, 0.2)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 6,
+                pointBackgroundColor: "#3498db",
+                pointBorderColor: 'white',
+                pointBorderWidth: 2,
+            }
         ],
-      };
-      
+    };
+
 
     const chartOptions = {
         responsive: true,
@@ -131,7 +132,7 @@ const OverviewPage = () => {
 
     return (
         <main className="main-content">
-           <MainTop title="Overview" />
+            <MainTop title="Overview" />
 
             <section className="summary-cards">
                 <div className="row">
@@ -141,7 +142,7 @@ const OverviewPage = () => {
                         </div>
                     </div>
                     <div className="card-item">
-                        <div className="card" style={{ backgroundColor: 'rgba(221, 226, 255, 1)' }}>
+                        <div className="card">
                             <div className="card-body">Active Orders<span className="count">76</span></div>
                         </div>
                     </div>
@@ -171,13 +172,19 @@ const OverviewPage = () => {
                         </h2>
                         <ul className="list">
                             <li>Bakr Ahmed Yousuf <span>98.56</span></li>
+                            <hr />
                             <li>Fuad Ahmed Jatari <span>98.12</span></li>
+                            <hr />
                             <li>Abdulqader All Yousuf <span>96.05</span></li>
+                            <hr />
                             <li>Ruxzod Azad Najmadin <span>97.85</span></li>
-                            <li style={{ paddingBlockEnd: '0px' }}>Mohammed Shahab Ahmed <span>87.54</span></li>
+                            <hr />
+                            <li>Mohammed Shahab Ahmed <span>87.54</span></li>
+                            <hr />
                         </ul>
                     </div>
                 </div>
+
                 <div className="card">
                     <div className="card-body">
                         <h2 className="card-title">
@@ -187,11 +194,16 @@ const OverviewPage = () => {
                             </span>
                         </h2>
                         <ul className="list">
-                            <li>Baban Torq Ahmed  <span>1254134</span></li>
-                            <li>Khaled Jamaa Aljouder<span>1054215</span></li>
-                            <li>Mohammed Ismail Ibrahim  <span>945874</span></li>
+                            <li>Baban Torq Ahmed <span>1254134</span></li>
+                            <hr />
+                            <li>Khaled Jamaa Aljouder <span>1054215</span></li>
+                            <hr />
+                            <li>Mohammed Ismail Ibrahim <span>945874</span></li>
+                            <hr />
                             <li>Bawar Husen Hamasharif <span>854579</span></li>
-                            <li style={{ paddingBlockEnd: '0px' }}>Abdulhafith Isman Alyasin <span>854579</span></li>
+                            <hr />
+                            <li>Abdulhafith Isman Alyasin <span>854579</span></li>
+                            <hr />
                         </ul>
                     </div>
                 </div>
