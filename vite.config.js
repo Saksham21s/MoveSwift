@@ -5,6 +5,12 @@ export default defineConfig({
   plugins: [react()],
   base: '/',
   server: {
-    historyApiFallback: true,
+    port: 5173, 
+  },
+  build: {
+    outDir: 'dist',
+    rollupOptions: {
+      input: 'index.html',
+    }
   }
 });
