@@ -60,7 +60,7 @@ const ReportFilter = () => {
       </div>
 
       {modalOpen && (
-  <div className="modal-overlay">
+  <div className="modal-overlay" >
     <div className="modal-content">
       <button className="modal-close-icon" onClick={() => setModalOpen(false)}>×</button>
       <img src={logoPopup} alt="Coming Soon" className="modal-image" />

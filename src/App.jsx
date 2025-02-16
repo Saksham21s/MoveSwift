@@ -10,6 +10,8 @@ import EquipmentsPage from './components/Pages/Reports/Equipments';
 import DownloadPage from './components/Pages/Reports/Download'; 
 import FilesPage from './components/Pages/Files/FilesPage'; 
 import SettingsPage from './components/Pages/Settings/SettingsPage';
+import AddEmployeePage from './components/Pages/Settings/AddEmployee';
+import AddRolePage from './components/Pages/Settings/AddRole';
 import LogoutPage from './components/Pages/Logout/LogoutPage';
 import ProfilePage from './components/Pages/Profile/ProfilePage';
 
@@ -30,6 +32,8 @@ function App() {
             <Route path="/reports/download" element={<DownloadPage />} />
             <Route path="/files" element={<FilesPage />} />
             <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/add-employee" element={<AddEmployeePage />} />
+            <Route path="/add-role" element={<AddRolePage />} />
             <Route path="/logout" element={<LogoutPage />} />
             <Route path="/profile" element={<ProfilePage />} />
           </Routes>

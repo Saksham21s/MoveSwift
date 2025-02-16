@@ -353,7 +353,7 @@ td#status-clr {
   margin-block: auto;
   text-align: center;
   transition: min-height 0.3s ease;
-  opacity: 1 !important; /* Ensure full opacity */
+  opacity: 1 !important; 
 }
 
 .report-box.has-date-section {
@@ -438,11 +438,14 @@ td#status-clr {
   }
 }
 
-.blurred *:not(.report-box):not(.modal-overlay):not(.modal-content) {
-  opacity: 0.8; 
+.blurred {
+  position: relative;
 }
 
-/* Modal Styles */
+.blurred > *:not(.report-box):not(.modal-overlay):not(.modal-content) {
+  opacity: 0.8;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -454,6 +457,7 @@ td#status-clr {
   align-items: center;
   justify-content: center;
   padding: 10px;
+  backdrop-filter: none;
 }
 
 .modal-content {
@@ -469,7 +473,9 @@ td#status-clr {
   border: 2px solid orange;
   opacity: 1 !important;
   pointer-events: auto;
+  filter: none;
 }
+
 
 .modal-close-icon {
   position: absolute;

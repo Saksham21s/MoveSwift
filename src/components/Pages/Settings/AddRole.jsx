@@ -31,7 +31,7 @@ const SettingsPage = () => {
   return (
     <main className="main-content">
       {/* Page Title */}
-      <MainTop title="Add Employee" />
+      <MainTop title="Settings" />
 
       {/* Two Columns in a Row */}
       <div className="settings-container">
@@ -76,7 +76,7 @@ const SettingsPage = () => {
 
           {/* Add New Employee Button */}
           <div className="add-btn-container">
-            <button onClick={() => navigate("/add-employee")} className="add-btn">
+            <button onClick={() => navigate("settings/add-employee")} className="add-btn">
               Add New Employee
             </button>
           </div>
@@ -117,7 +117,7 @@ const SettingsPage = () => {
           </div>
           
           <div className="add-btn-container">
-            <button onClick={() => navigate("/add-role")} className="add-btn">
+            <button onClick={() => navigate("settings/add-role")} className="add-btn">
               Add New Role
             </button>
           </div>

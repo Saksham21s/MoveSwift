@@ -2,6 +2,7 @@ import "../../../styles/style.min.css";
 import "./files.css";
 import MainTop from '../Navbar/MainTop';
 import { useState } from "react";
+import logoPopup from "../../../assets/block-user.png";
 
 const FilesPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -12,8 +13,6 @@ const FilesPage = () => {
       <MainTop title="Files" />
 
       <div className={`files-container ${modalOpen ? "blurred" : ""}`}>
-
-        {/* Cards Section (4 in a row for desktop, 2 in a row for mobile) */}
         <div className="cards-section">
           <div className="file-card">
             <h3>Daily Cash Report</h3>
@@ -87,8 +86,8 @@ const FilesPage = () => {
         {modalOpen && (
           <div className="modal-overlay">
             <div className="modal-content">
-              <img src="popup-image.png" alt="Coming Soon" className="modal-image" />
-              <h2>This section will be added soon</h2>
+              <img src={logoPopup} alt="Coming Soon" className="modal-image" />
+              <h2>File Uploaded Succesfully</h2>
               <button className="close-modal-button" onClick={() => setModalOpen(false)}>
                 Go Back
               </button>

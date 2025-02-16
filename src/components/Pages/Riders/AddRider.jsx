@@ -62,7 +62,7 @@ const AddRider = () => {
 
     return (
         <main className={`main-content ${showSuccess ? 'blur-background' : ''}`}>
-            <MainTop title="Riders" /> 
+            <MainTop title="Riders" />
             <div className="action-container">
                 <div className="action-left">
                     <p>Add New Rider</p>
@@ -133,16 +133,16 @@ const AddRider = () => {
             {showSuccess && (
                 <div className="success-popup">
                     <div className="dialog-content">
-                    <div className="dialog-image">
-                        <img src={alert} alt= "Alert" />
+                        <div className="dialog-image">
+                            <img src={alert} alt="Alert" />
+                        </div>
+                        <div className="dialog-heading">
+                            <h3>Your Data is Saved</h3>
+                        </div>
+                        <div className="dialog-paragraph">
+                            <p>Your Data is Saved in Our Server. Dont worry we keep our riders data secure and encrypted.</p>
+                        </div>
                     </div>
-                    <div className="dialog-heading">
-                        <h3>Your Data is Saved</h3>
-                    </div>
-                    <div className="dialog-paragraph">
-                        <p>Your Data is Saved in Our Server. Dont worry we keep our riders data secure and encrypted.</p>
-                    </div>
-                </div>
                 </div>
             )}
         </main>
