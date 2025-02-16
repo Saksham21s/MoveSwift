@@ -1,39 +1,55 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../styles/style.min.css";
 import "./reports.css";
 import MainTop from "../Navbar/MainTop";
+import DialogueBox from "../Riders/ConfirmationDialog";
 
 const ComplaintsPage = () => {
   const [filter, setFilter] = useState("Unresolved");
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownState, setDropdownState] = useState(null);
+  const [showDialog, setShowDialog] = useState(false);
+  const [selectedComplaint, setSelectedComplaint] = useState(null);
+  const [complaints, setComplaints] = useState(
+    Array.from({ length: 27 }, (_, index) => ({
+      id: index + 1,
+      riderId: `R00${index + 1}`,
+      name: [
+        "Aman Kumar", "Rahul Sharma", "Sakshi Verma", "Deepak Yadav", "Neha Singh", "Ravi Patel",
+        "Pooja Gupta", "Vikas Chauhan", "Shreya Jain", "Ankit Thakur", "Nidhi Rawat", "Kunal Mishra",
+        "Priya Mehta", "Ramesh Tiwari", "Sonia Dutta", "Yogesh Malhotra", "Kiran Desai", "Vivek Ahuja",
+        "Simran Kaur", "Harish Pandey", "Alok Tripathi", "Megha Joshi", "Chetan Bansal", "Ishita Kapoor",
+        "Sandeep Goyal", "Varun Saxena", "Monika Reddy"
+      ][index],
+      date: `2025-${String((index % 12) + 1).padStart(2, '0')}-${String((index % 28) + 1).padStart(2, '0')}`,
+      type: ["Delivery Issue", "Payment Issue", "App Issue", "Behavior", "Order Issue"][index % 5],
+      complaint: [
+        "Late delivery",
+        "Wrong deduction",
+        "App not working",
+        "Rude behavior",
+        "Wrong order delivered",
+      ][index % 5],
+      status: index % 2 === 0 ? "Resolved" : "Unresolved",
+      riderImage: `https://randomuser.me/api/portraits/${index % 2 === 0 ? "men" : "women"}/${index % 24}.jpg`,
+    }))
+  );
+  const [alertMessage, setAlertMessage] = useState(null);
   const navigate = useNavigate();
 
-  const names = [
-    "Aman Kumar", "Rahul Sharma", "Sakshi Verma", "Deepak Yadav", "Neha Singh", "Ravi Patel",
-    "Pooja Gupta", "Vikas Chauhan", "Shreya Jain", "Ankit Thakur", "Nidhi Rawat", "Kunal Mishra",
-    "Priya Mehta", "Ramesh Tiwari", "Sonia Dutta", "Yogesh Malhotra", "Kiran Desai", "Vivek Ahuja",
-    "Simran Kaur", "Harish Pandey", "Alok Tripathi", "Megha Joshi", "Chetan Bansal", "Ishita Kapoor",
-    "Sandeep Goyal", "Varun Saxena", "Monika Reddy"
-  ];
+  const handleDeleteClick = (complaint) => {
+    setSelectedComplaint(complaint);
+    setShowDialog(true);
+  };
 
-  const complaints = Array.from({ length: names.length }, (_, index) => ({
-    id: index + 1,
-    riderId: `R00${index + 1}`,
-    name: names[index],
-    date: `2025-02-${(index % 28) + 1}`,
-    type: ["Delivery Issue", "Payment Issue", "App Issue", "Behavior", "Order Issue"][index % 5],
-    complaint: [
-      "Late delivery",
-      "Wrong deduction",
-      "App not working",
-      "Rude behavior",
-      "Wrong order delivered",
-    ][index % 5],
-    status: index % 2 === 0 ? "Resolved" : "Unresolved",
-    riderImage: `https://randomuser.me/api/portraits/${index % 2 === 0 ? "men" : "women"}/${index % 24}.jpg`,
-  }));
+  const handleConfirmDelete = () => {
+    setComplaints(complaints.filter(c => c.id !== selectedComplaint.id));
+    setAlertMessage(` ${selectedComplaint.name} deleted.`);
+    setTimeout(() => setAlertMessage(null), 2000);
+    setShowDialog(false);
+    setSelectedComplaint(null);
+  };
 
   const filteredComplaints = complaints.filter(
     (complaint) =>
@@ -45,6 +61,7 @@ const ComplaintsPage = () => {
   return (
     <main className="main-content">
       <MainTop title="Complaints" />
+
       <div className="filter-buttons">
         <button onClick={() => setFilter("Resolved")} className={filter === "Resolved" ? "active" : ""}>
           Resolved
@@ -53,8 +70,8 @@ const ComplaintsPage = () => {
           Unresolved
         </button>
       </div>
-
       <div className="complaints-container">
+      {alertMessage && <div className="alert-message" style={{ backgroundColor: "#FFD580", color: "black", padding: "10px", borderRadius: "5px", textAlign: "center", marginBottom: "10px" ,width:"max-content",marginInline:"auto"}}>{alertMessage}</div>}
         <div className="filter-search-section">
           <input
             type="text"
@@ -63,7 +80,6 @@ const ComplaintsPage = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-
         <table className="complaints-table">
           <thead>
             <tr>
@@ -87,7 +103,11 @@ const ComplaintsPage = () => {
                 <td>{complaint.date}</td>
                 <td>{complaint.type}</td>
                 <td>{complaint.complaint}</td>
-                <td className={`complaint-status ${complaint.status.toLowerCase()}`}>{complaint.status}</td>
+                <td>
+                  <div className={`complaint-status ${complaint.status.toLowerCase()}`}>
+                    {complaint.status}
+                  </div>
+                </td>
                 <td>
                   <div className="dropdown">
                     <button
@@ -100,7 +120,7 @@ const ComplaintsPage = () => {
                       <div className="dropdown-menu">
                         <button onClick={() => navigate(`/view/${complaint.id}`)}>View</button>
                         <button onClick={() => navigate(`/resolve/${complaint.id}`)}>Resolve</button>
-                        <button onClick={() => navigate(`/delete/${complaint.id}`)}>Delete</button>
+                        <button onClick={() => handleDeleteClick(complaint)}>Delete</button>
                       </div>
                     )}
                   </div>
@@ -110,6 +130,13 @@ const ComplaintsPage = () => {
           </tbody>
         </table>
       </div>
+      {showDialog && (
+        <DialogueBox 
+          actionType="delete" 
+          onConfirm={handleConfirmDelete} 
+          onCancel={() => setShowDialog(false)} 
+        />
+      )}
     </main>
   );
 };

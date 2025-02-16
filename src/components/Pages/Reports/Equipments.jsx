@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import "../../../styles/style.min.css";
 import "./reports.css";
 import MainTop from "../Navbar/MainTop";
+import DialogueBox from "../Riders/ConfirmationDialog";
 
 const ComplaintsPage = () => {
   const [filter, setFilter] = useState("Unresolved");
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownState, setDropdownState] = useState(null);
+  const [showDialog, setShowDialog] = useState(false);
+  const [selectedComplaint, setSelectedComplaint] = useState(null);
   const navigate = useNavigate();
 
   const names = [
@@ -18,23 +21,28 @@ const ComplaintsPage = () => {
     "Sandeep Goyal", "Varun Saxena", "Monika Reddy"
   ];
 
-  const complaints = names.map((name, index) => {
-    const equipment = ["10/12", "14", "16/16", "11/11", "12/12", "17/17"][index % 6];
-    return {
-      id: index + 1,
-      riderId: `R00${index + 1}`,
-      name,
-      equipmentProvided: equipment,
-      status: equipment.split('/')[0] === equipment.split('/')[1] ? "Resolved" : "Unresolved", 
-      riderImage: `https://randomuser.me/api/portraits/${index % 2 === 0 ? "men" : "women"}/${index % 24}.jpg`,
-    };
-  });
+
+    const [complaints, setComplaints] = useState(() => {
+      return names.map((name, index) => {
+        const equipment = ["10/12", "14", "16/16", "11/11", "12/12", "17/17"][index % 6];
+        return {
+          id: index + 1,
+          riderId: `R00${index + 1}`,
+          name,
+          equipmentProvided: equipment,
+          status: equipment.split('/')[0] === equipment.split('/')[1] ? "Resolved" : "Unresolved",
+          riderImage: `https://randomuser.me/api/portraits/${index % 2 === 0 ? "men" : "women"}/${index % 24}.jpg`,
+        };
+      });
+    });
+    
 
   const filteredComplaints = complaints.filter(
     (complaint) =>
       (filter === "All" || complaint.status === filter) &&
       (complaint.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        complaint.equipmentProvided.toLowerCase().includes(searchTerm.toLowerCase()))
+       complaint.riderId.toLowerCase().includes(searchTerm.toLowerCase()) || 
+       complaint.equipmentProvided.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   const getStatusClass = (equipment) => {
@@ -43,6 +51,20 @@ const ComplaintsPage = () => {
       className: isResolved ? "resolved-green" : "resolved-red",
       text: isResolved ? "Complete" : "Incomplete"
     };
+  };
+
+  const [alertMessage, setAlertMessage] = useState(null);
+  const handleDeleteClick = (complaint) => {
+    setSelectedComplaint(complaint);
+    setShowDialog(true);
+  };
+
+  const handleConfirmDelete = () => {
+    setComplaints(complaints.filter(c => c.id !== selectedComplaint.id));
+    setAlertMessage(` ${selectedComplaint.name} deleted.`);
+    setTimeout(() => setAlertMessage(null), 2000);
+    setShowDialog(false);
+    setSelectedComplaint(null);
   };
 
   return (
@@ -64,10 +86,11 @@ const ComplaintsPage = () => {
       </div>
 
       <div className="complaints-container">
+      {alertMessage && <div className="alert-message" style={{ backgroundColor: "#FFD580", color: "black", padding: "10px", borderRadius: "5px", textAlign: "center", marginBottom: "10px" ,width:"max-content",marginInline:"auto"}}>{alertMessage}</div>}
         <div className="filter-search-section">
           <input
             type="text"
-            placeholder="Search complaints..."
+            placeholder="Search by name, rider ID, or equipment..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -77,6 +100,7 @@ const ComplaintsPage = () => {
           <thead>
             <tr>
               <th>Serial No</th>
+              <th>Rider ID</th>
               <th>Rider</th>
               <th>Equipments Provided</th>
               <th>Status</th>
@@ -89,13 +113,16 @@ const ComplaintsPage = () => {
               return (
                 <tr key={complaint.id}>
                   <td>{index + 1}</td>
+                  <td>{complaint.riderId}</td> 
                   <td className="rider-info">
                     <img src={complaint.riderImage} alt={complaint.name} className="rider-img" />
                     <span>{complaint.name}</span>
                   </td>
                   <td>{complaint.equipmentProvided}</td>
-                  <td id="status-clr" className={`complaint-status ${className}`}>
-                    {text} 
+                  <td id="status-clr">
+                    <div className={`complaint-status ${className}`}>
+                      {text}
+                    </div>
                   </td>
                   <td>
                     <div className="dropdown">
@@ -108,8 +135,8 @@ const ComplaintsPage = () => {
                       {dropdownState === complaint.id && (
                         <div className="dropdown-menu">
                           <button onClick={() => navigate(`/view/${complaint.id}`)}>View</button>
-                          <button onClick={() => navigate(`/resolve/${complaint.id}`)}>Resolve</button>
-                          <button onClick={() => navigate(`/delete/${complaint.id}`)}>Delete</button>
+                          <button onClick={() => navigate(`/resolve/${complaint.id}`)}>Resolved</button>
+                          <button onClick={() => handleDeleteClick(complaint)}>Delete</button>
                         </div>
                       )}
                     </div>
@@ -120,6 +147,14 @@ const ComplaintsPage = () => {
           </tbody>
         </table>
       </div>
+
+      {showDialog && (
+        <DialogueBox 
+          actionType="delete" 
+          onConfirm={handleConfirmDelete} 
+          onCancel={() => setShowDialog(false)} 
+        />
+      )}
     </main>
   );
 };

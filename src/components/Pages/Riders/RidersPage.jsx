@@ -9,7 +9,7 @@ import MainTop from '../Navbar/MainTop';
 
 
 
-const OverviewPage = () => {
+const RiderPage = () => {
   const [filter, setFilter] = useState("All Rider");
   const [searchTerm, setSearchTerm] = useState("");
   const [menuVisible, setMenuVisible] = useState(null);
@@ -45,6 +45,7 @@ const OverviewPage = () => {
     return matchesFilter && matchesSearch;
   });
 
+  
   const handleMenuToggle = (id) => {
     setMenuVisible(menuVisible === id ? null : id);
   };
@@ -75,7 +76,7 @@ const OverviewPage = () => {
         setActionType(null); 
     };
 
-    const navigate = useNavigate(); // Initializing useNavigate
+    const navigate = useNavigate();
 
     const handleAddRiderClick = () => {
         navigate('/add-rider'); 
@@ -228,4 +229,4 @@ const OverviewPage = () => {
   );
 };
 
-export default OverviewPage;
+export default RiderPage;
