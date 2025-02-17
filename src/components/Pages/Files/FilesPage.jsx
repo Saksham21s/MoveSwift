@@ -1,15 +1,23 @@
+import { useState } from "react";
 import "../../../styles/style.min.css";
 import "./files.css";
-import MainTop from '../Navbar/MainTop';
-import { useState } from "react";
+import MainTop from "../Navbar/MainTop";
 import logoPopup from "../../../assets/block-user.png";
 
 const FilesPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [selectedBox, setSelectedBox] = useState("Daily Cash Report");
+
+  // Mapping for different radio options based on selected left box
+  const dateOptions = {
+    "Daily Cash Report": ["Today", "Yesterday", "Choose Date"],
+    "Weekly Performance": ["This Week", "Previous Week", "Choose Week"],
+    "Salary Sheet": ["This Month", "Previous Month", "Choose Month"],
+    "Equipments": ["This Year", "Previous Year", "Choose Year"],
+  };
 
   return (
     <main className="main-content">
-      {/* Top row of overview and profile image */}
       <MainTop title="Files" />
 
       <div className={`files-container ${modalOpen ? "blurred" : ""}`}>
@@ -39,29 +47,26 @@ const FilesPage = () => {
         <div className="form-section">
           {/* Left Side Boxes */}
           <div className="left-div">
-            <div className="left-box">Daily Cash Report</div>
-            <div className="left-box">Weekly Performance</div>
-            <div className="left-box">Salary Sheet</div>
-            <div className="left-box">Equipments</div>
+            {Object.keys(dateOptions).map((box) => (
+              <div
+                key={box}
+                className={`left-box ${selectedBox === box ? "active" : ""}`}
+                onClick={() => setSelectedBox(box)}
+              >
+                {box}
+              </div>
+            ))}
           </div>
 
           {/* Right Side */}
           <div className="right-div">
             <div className="date-options">
-              <label>
-                <input type="radio" name="date-option" value="today" />
-                <span className="radio-label">Today</span>
-              </label>
-
-              <label>
-                <input type="radio" name="date-option" value="yesterday" />
-                <span className="radio-label">Yesterday</span>
-              </label>
-
-              <label>
-                <input type="radio" name="date-option" value="choose-date" />
-                <span className="radio-label">Choose Date</span>
-              </label>
+              {dateOptions[selectedBox].map((option) => (
+                <label key={option}>
+                  <input type="radio" name="date-option" value={option.toLowerCase()} />
+                  <span className="radio-label">{option}</span>
+                </label>
+              ))}
             </div>
 
             <label htmlFor="date">Date</label>
@@ -77,7 +82,7 @@ const FilesPage = () => {
             </div>
 
             <button className="submit-button" onClick={() => setModalOpen(true)}>
-             Upload File
+              Upload File
             </button>
           </div>
         </div>
@@ -87,7 +92,7 @@ const FilesPage = () => {
           <div className="modal-overlay">
             <div className="modal-content">
               <img src={logoPopup} alt="Coming Soon" className="modal-image" />
-              <h2>File Uploaded Succesfully</h2>
+              <h2>File Uploaded Successfully</h2>
               <button className="close-modal-button" onClick={() => setModalOpen(false)}>
                 Go Back
               </button>

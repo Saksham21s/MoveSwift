@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../../../styles/style.min.css";
 import "./settings.css";
 import MainTop from "../Navbar/MainTop";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 const AddEmployeePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(null);
+  const menuRef = useRef(null);
   const navigate = useNavigate();
 
   const employees = [
@@ -25,25 +26,30 @@ const AddEmployeePage = () => {
     emp.mobile.includes(searchQuery)
   );
 
-  const handleOutsideClick = (event) => {
-    if (!event.target.closest(".popup-container")) {
-      setMenuOpen(null);
-    }
+  const handleMenuOpen = (e, popUpId) => {
+    e.stopPropagation();
+    setMenuOpen(menuOpen === popUpId ? null : popUpId);
   };
 
   useEffect(() => {
-    document.addEventListener("click", handleOutsideClick);
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setMenuOpen(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleOutsideClick);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   return (
     <main className="main-content">
-      <MainTop title="Add Employee" />
+      <MainTop title="Employee" />
       <div className="action-container">
         <div className="action-left">
-          <p>Add New Rider</p>
+          <p> Employee</p>
         </div>
         <div className="action-right">
           <button className="button" onClick={() => navigate("/settings")}>
@@ -52,17 +58,15 @@ const AddEmployeePage = () => {
         </div>
       </div>
 
-    
-
       <div className="table-container">
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search employees..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </div>
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search employees..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
         <table className="employee-table">
           <thead>
             <tr>
@@ -94,13 +98,10 @@ const AddEmployeePage = () => {
                       {emp.status}
                     </div>
                   </td>
-                  <td className="popup-container">
+                  <td className="popup-container" ref={menuRef}>
                     <button
                       className="menu-button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setMenuOpen(menuOpen === popUpId ? null : popUpId);
-                      }}
+                      onClick={(e) => handleMenuOpen(e, popUpId)}
                     >
                       ⋮
                     </button>

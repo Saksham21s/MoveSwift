@@ -9,7 +9,7 @@ $cards-bg: rgba(255, 255, 255, 1);
 $card-heading: rgba(159, 162, 180, 1);
 $card-count: rgba(5, 63, 94, 1);
 $main-bg-color: rgba(5, 63, 94, 1);
-$active-dropdown-text-color:rgb(255, 255, 49);
+$active-dropdown-text-color: rgb(255, 255, 49);
 
 * {
   color: $sidebar-text-color;
@@ -25,7 +25,6 @@ html {
   background-color: rgba(5, 63, 94, 1);
   overflow-x: hidden;
 }
-
 
 //---------------------------------------------------Overview Page Starts Here-------------------------------------------------------------//
 
@@ -199,9 +198,8 @@ html {
   }
 
   .card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
   }
 }
 
@@ -239,8 +237,8 @@ html {
 
       .chart-section {
         height: 400px;
-        width: 90%;
-        margin: 0 auto 20px;
+        width: 70%;
+        margin: 20px;
       }
 
       .img-tp-txt {
@@ -278,7 +276,7 @@ html {
 
         .cash-details {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));
           gap: 20px;
           text-align: left;
 
@@ -313,6 +311,13 @@ html {
         }
         .cash-details {
           grid-template-columns: repeat(2, 1fr);
+          position: relative;
+          top: -46px;
+          border-left: 1px solid grey;
+
+          .detail {
+            padding-block: 50px;
+          }
         }
       }
 
@@ -432,7 +437,7 @@ html {
 
   .summary-item {
     padding: 10px;
-    width: 25%;
+    flex: 1;
     box-sizing: border-box;
 
     .summary-box {
@@ -468,17 +473,14 @@ html {
   @media (max-width: 767px) {
     .summary-item {
       width: calc(33.33% - 7px);
+      gap: 2px;
     }
 
-    .summary-item:nth-child(4) {
-      width: 74%;
-      margin: 0 auto;
-    }
   }
 
   @media (min-width: 768px) {
     .summary-item {
-      width: 24%;
+      flex: 1;
     }
   }
 
@@ -490,7 +492,7 @@ html {
 
   .new-rider {
     background-color: rgba(255, 215, 0, 1);
-    width: 258px;
+    width: 100%;
     height: 65px;
     border-radius: 8px;
     display: flex;
@@ -518,11 +520,10 @@ html {
       display: flex;
       background-color: $main-bg-color;
       align-items: center;
+      justify-content: center;
       cursor: pointer;
 
       img {
-        height: 20px;
-        width: 20px;
         margin-right: 5px;
         object-fit: cover;
         flex-shrink: 0;
@@ -539,15 +540,15 @@ html {
 .new-rider-btn {
   display: flex;
   flex-direction: row;
-  margin-inline: 0px;
   cursor: pointer;
+  gap: 10px;
 
   .rider-btn-item {
     border: 1px solid rgba(255, 215, 0, 1);
     border-radius: 5px;
     margin-block: 10px;
-    margin-inline: 10px;
     padding: 12px;
+    flex: 1;
 
     span {
       display: block;
@@ -607,7 +608,8 @@ html {
 .rider-data-card {
   width: 100%;
   max-width: 1200px;
-  margin: 20px 0;
+ margin-top: 0;
+ margin-bottom: 30px;
   margin-inline: 10px;
   padding: 15px;
   background: $cards-bg;
@@ -672,6 +674,7 @@ html {
 
   .rider-table-container {
     overflow-x: auto;
+    padding-bottom: 30px;
   }
 
   .rider-table {

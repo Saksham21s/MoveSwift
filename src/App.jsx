@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import AsideSection from './components/Pages/Navbar/AsideNav';
 import RidersPage from './components/Pages/Riders/RidersPage';
 import AddRider from './components/Pages/Riders/AddRider';
@@ -13,13 +13,18 @@ import SettingsPage from './components/Pages/Settings/SettingsPage';
 import AddEmployeePage from './components/Pages/Settings/AddEmployee';
 import AddRolePage from './components/Pages/Settings/AddRole';
 import LogoutPage from './components/Pages/Logout/LogoutPage';
+import ForgotPasswordPage from './components/Pages/Logout/ForgotPasswordPage';
+import OtpVerifyPage from './components/Pages/Logout/OtpVerifyPage';
 import ProfilePage from './components/Pages/Profile/ProfilePage';
 
-function App() {
+function Layout() {
+  const location = useLocation();
+  const isAuthPage = location.pathname === "/logout" || location.pathname === "/forgot-password" || location.pathname === "/otp-verify";
+
   return (
-    <Router>
-      <div className="app-container">
-        <AsideSection />
+    <div className="app-container">
+      {!isAuthPage && <AsideSection />}
+      {!isAuthPage && (
         <div className="main-content">
           <Routes>
             <Route path="/" element={<OverviewPage />} />
@@ -34,11 +39,25 @@ function App() {
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/add-employee" element={<AddEmployeePage />} />
             <Route path="/add-role" element={<AddRolePage />} />
-            <Route path="/logout" element={<LogoutPage />} />
             <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </div>
-      </div>
+      )}
+      {isAuthPage && (
+        <Routes>
+          <Route path="/logout" element={<LogoutPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/otp-verify" element={<OtpVerifyPage />} />
+        </Routes>
+      )}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Layout />
     </Router>
   );
 }

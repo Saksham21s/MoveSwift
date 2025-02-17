@@ -90,7 +90,7 @@ const ComplaintsPage = () => {
         <div className="filter-search-section">
           <input
             type="text"
-            placeholder="Search by name, rider ID, or equipment..."
+            placeholder="Search Equipemts"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />

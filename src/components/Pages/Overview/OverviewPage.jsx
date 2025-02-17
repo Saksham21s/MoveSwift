@@ -110,7 +110,7 @@ const CashStatus = ({ actualCash, receivedCash }) => {
                         </div>
                         <div className="cash-details">
                             <div className="detail">Actual Cash <span>{actualCash.toLocaleString()}</span></div>
-                            <div className="detail" style={{ borderTop: "0.5px solid gray" }}>Received Cash <span>{receivedCash.toLocaleString()}</span></div>
+                            <div className="detail" style={{ borderTop: "0.5px solid gray" }}>Received Cash<span>{receivedCash.toLocaleString()}</span></div>
                             <div className="detail" style={{ borderTop: "0.5px solid gray" }}>Balance Cash <span>{balanceCash.toLocaleString()}</span></div>
                             <div className="detail" style={{ borderTop: "0.5px solid gray" }}>Balance Cash % <span>{balanceCashPercentage}%</span></div>
                         </div>
@@ -188,7 +188,7 @@ const OverviewPage = () => {
                 <div className="card">
                     <div className="card-body">
                         <h2 className="card-title">
-                            Top riders with acceptance rate
+                            Top Vendors with Collection
                             <span>
                                 <a href="javascript:void(0)">View All</a>
                             </span>

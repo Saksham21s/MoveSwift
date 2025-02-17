@@ -1,130 +1,74 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "../../../styles/style.min.css";
 import "./settings.css";
 import MainTop from "../Navbar/MainTop";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-const SettingsPage = () => {
-  const [menuOpen, setMenuOpen] = useState(null);
+const AddRolePage = () => {
   const navigate = useNavigate();
+  const [selectedPermissions, setSelectedPermissions] = useState({});
 
-  const employees = [
-    { name: "John Doe", role: "Admin" },
-    { name: "Jane Smith", role: "Cashier" },
-    { name: "Michael Brown", role: "Captain" },
-    { name: "Emily Johnson", role: "Moderator" },
-    { name: "Chris Evans", role: "Viewer" },
+  const togglePermission = (category, permission) => {
+    setSelectedPermissions((prev) => ({
+      ...prev,
+      [category]: {
+        ...prev[category],
+        [permission]: !prev[category]?.[permission],
+      },
+    }));
+  };
+
+  const permissionsData = [
+    { category: "Overview", permissions: ["View"] },
+    { category: "Rider", permissions: ["View", "Edit", "Block", "Delete"] },
+    { category: "Vendors", permissions: ["View", "Edit", "Delete"] },
+    { category: "Reports", permissions: ["View", "Edit", "Download"] },
+    { category: "Files", permissions: ["View", "Edit"] },
+    { category: "Settings", permissions: ["View", "Edit"] },
   ];
-
-  const roles = ["Admin", "Cashier", "Captain", "Moderator", "Viewer"];
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!event.target.closest(".popup-menu") && !event.target.closest(".menu-button")) {
-        setMenuOpen(null);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
 
   return (
     <main className="main-content">
-      {/* Page Title */}
-      <MainTop title="Settings" />
-
-      {/* Two Columns in a Row */}
-      <div className="settings-container">
-        {/* Employees Section */}
-        <div className="employees-section">
-          <div className="section-header">
-            <h2>Employees</h2>
-            <button className="view-all-btn">View All</button>
-          </div>
-
-          <div className="employees-list">
-            {employees.map((emp, index) => {
-              const popUpId = `employee-${index}`;
-              return (
-                <div key={index} className="employee-row">
-                  <span className="employee-name">{emp.name}</span>
-                  <button className={`role-button ${emp.role.toLowerCase()}`}>
-                    {emp.role}
-                  </button>
-                  <button
-                    className="menu-button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setMenuOpen(menuOpen === popUpId ? null : popUpId);
-                    }}
-                  >
-                    ⋮
-                  </button>
-
-                  {/* Pop-up menu */}
-                  {menuOpen === popUpId && (
-                    <div className="popup-menu">
-                      <button>Edit</button>
-                      <button>Set as Inactive</button>
-                      <button>Delete</button>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Add New Employee Button */}
-          <div className="add-btn-container">
-            <button onClick={() => navigate("settings/add-employee")} className="add-btn">
-              Add New Employee
-            </button>
-          </div>
+      <MainTop title="Role" />
+      <div className="action-container">
+        <div className="action-left">
+          <p>Employee Role </p>
         </div>
-
-        {/* Roles Section */}
-        <div className="roles-section">
-          <div className="section-header">
-            <h2>Roles</h2>
-            <button className="view-all-btn">View All</button>
-          </div>
-
-          <div className="roles-list">
-            {roles.map((role, index) => {
-              const popUpId = `role-${index}`;
-              return (
-                <div key={index} className="role-item">
-                  <span>{role}</span>
-                  <button
-                    className="menu-button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setMenuOpen(menuOpen === popUpId ? null : popUpId);
-                    }}
-                  >
-                    ⋮
-                  </button>
-
-                  {menuOpen === popUpId && (
-                    <div className="popup-menu">
-                      <button>Edit</button>
-                      <button>Delete</button>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          
-          <div className="add-btn-container">
-            <button onClick={() => navigate("settings/add-role")} className="add-btn">
-              Add New Role
-            </button>
-          </div>
+        <div className="action-right">
+          <button className="button" onClick={() => navigate("/settings")}>← &nbsp;&nbsp;&nbsp;Back</button>
         </div>
+      </div>
+
+      <div className="add-role-container">
+      {/* Add Role Section */}
+      <div className="add-role">
+        <label className="role-label"> Role Name</label><br />
+        <input type="text" className="role-input" placeholder="Enter role" />
+      </div>
+
+      <><p>Choose the previleges for the role</p><br /></>
+      {/* Permissions Section */}
+      <div className="permissions-container">
+        {permissionsData.map(({ category, permissions }) => (
+          <div key={category} className="permission-row">
+           <div className="category-div"><label className="category-label">{category}</label></div> 
+            <div className="permission-options">
+              {permissions.map((perm) => (
+                <div key={perm} className="permission-box" onClick={() => togglePermission(category, perm)}>
+                  <div className={`circle ${selectedPermissions[category]?.[perm] ? "checked" : ""}`}></div>
+                  <span>{perm}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="button-container">
+        <button className="button add-role-btn">Add Role</button>
+      </div>
       </div>
     </main>
   );
 };
 
-export default SettingsPage;
+export default AddRolePage;

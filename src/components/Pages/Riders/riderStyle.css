@@ -167,9 +167,7 @@
 }
 
 .action-left {
-  flex: 1;
   display: flex;
-  align-items: center;
 }
 
 .action-left p {
@@ -343,7 +341,6 @@
   }
 
   .action-container {
-    flex-direction: column;
     align-items: center;
     gap: 10px;
   }

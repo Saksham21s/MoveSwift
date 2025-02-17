@@ -166,9 +166,8 @@ html {
   }
 }
 .summary-cards .card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-5px);
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
 }
 
 /*------- Cash Status Styles -----------------*/
@@ -203,8 +202,8 @@ html {
 }
 .cash-status .card .card-body .chart-section {
   height: 400px;
-  width: 90%;
-  margin: 0 auto 20px;
+  width: 70%;
+  margin: 20px;
 }
 .cash-status .card .card-body .img-tp-txt {
   display: flex;
@@ -237,7 +236,7 @@ html {
 }
 .cash-status .card .card-body .status-container .cash-details {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));
   gap: 20px;
   text-align: left;
 }
@@ -267,6 +266,12 @@ html {
   }
   .cash-status .card .card-body .cash-details {
     grid-template-columns: repeat(2, 1fr);
+    position: relative;
+    top: -46px;
+    border-left: 1px solid grey;
+  }
+  .cash-status .card .card-body .cash-details .detail {
+    padding-block: 50px;
   }
 }
 @media screen and (max-width: 768px) {
@@ -369,7 +374,7 @@ html {
 }
 .summary-cards .summary-item {
   padding: 10px;
-  width: 25%;
+  flex: 1;
   box-sizing: border-box;
 }
 .summary-cards .summary-item .summary-box {
@@ -402,15 +407,12 @@ html {
 @media (max-width: 767px) {
   .summary-cards .summary-item {
     width: calc(33.33% - 7px);
-  }
-  .summary-cards .summary-item:nth-child(4) {
-    width: 74%;
-    margin: 0 auto;
+    gap: 2px;
   }
 }
 @media (min-width: 768px) {
   .summary-cards .summary-item {
-    width: 24%;
+    flex: 1;
   }
 }
 .summary-cards .summary-box:hover {
@@ -420,7 +422,7 @@ html {
 }
 .summary-cards .new-rider {
   background-color: rgb(255, 215, 0);
-  width: 258px;
+  width: 100%;
   height: 65px;
   border-radius: 8px;
   display: flex;
@@ -446,11 +448,10 @@ html {
   display: flex;
   background-color: rgb(5, 63, 94);
   align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
 .summary-cards .new-rider-btn .rider-btn-item img {
-  height: 20px;
-  width: 20px;
   margin-right: 5px;
   object-fit: cover;
   flex-shrink: 0;
@@ -463,15 +464,15 @@ html {
 .new-rider-btn {
   display: flex;
   flex-direction: row;
-  margin-inline: 0px;
   cursor: pointer;
+  gap: 10px;
 }
 .new-rider-btn .rider-btn-item {
   border: 1px solid rgb(255, 215, 0);
   border-radius: 5px;
   margin-block: 10px;
-  margin-inline: 10px;
   padding: 12px;
+  flex: 1;
 }
 .new-rider-btn .rider-btn-item span {
   display: block;
@@ -525,7 +526,8 @@ html {
 .rider-data-card {
   width: 100%;
   max-width: 1200px;
-  margin: 20px 0;
+  margin-top: 0;
+  margin-bottom: 30px;
   margin-inline: 10px;
   padding: 15px;
   background: rgb(255, 255, 255);
@@ -583,6 +585,7 @@ html {
 }
 .rider-data-card .rider-table-container {
   overflow-x: auto;
+  padding-bottom: 30px;
 }
 .rider-data-card .rider-table {
   width: 100%;

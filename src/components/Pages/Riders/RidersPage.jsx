@@ -1,18 +1,17 @@
+import  { useState, useEffect, useRef } from "react";
 import "../../../styles/style.min.css";
-import { useState } from "react";
-import ConfirmationDialog from "./ConfirmationDialog"
+import ConfirmationDialog from "./ConfirmationDialog";
 import { useNavigate } from 'react-router-dom';
 import newRider from '../../../assets/new-rider.png';
 import block from '../../../assets/block.png';
 import del from '../../../assets/del.png';
 import MainTop from '../Navbar/MainTop';
 
-
-
 const RiderPage = () => {
   const [filter, setFilter] = useState("All Rider");
   const [searchTerm, setSearchTerm] = useState("");
   const [menuVisible, setMenuVisible] = useState(null);
+  const menuRef = useRef(null);
 
   const riders = [
     { id: 1, name: "John Doe", image: "https://media.istockphoto.com/id/1285124274/photo/middle-age-man-portrait.jpg?s=2048x2048&w=is&k=20&c=bTE9WTRrEu0QmBJhr-3bqc4xO5jLpkuXFScIpSJWXRQ=", tenure: "6 months", batch: "Batch A", contract: "Active", zone: "Zone 1" },
@@ -37,7 +36,6 @@ const RiderPage = () => {
     { id: 20, name: "Harper Walker", image: "https://media.istockphoto.com/id/1188562863/photo/grateful-happy-beautiful-indian-girl-holding-hands-on-chest.webp?a=1&b=1&s=612x612&w=0&k=20&c=WjBV8cv5pD0HIwDtgQDcXxzISiyef7T_dhaUqNXxK0o=", tenure: "5 months", batch: "Batch C", contract: "Blocked", zone: "Zone 1" }
   ];
 
-
   // Filtering & Searching Logic
   const filteredRiders = riders.filter((rider) => {
     const matchesFilter = filter === "All Rider" || rider.contract === filter.replace(" Rider", "");
@@ -45,42 +43,52 @@ const RiderPage = () => {
     return matchesFilter && matchesSearch;
   });
 
-  
   const handleMenuToggle = (id) => {
     setMenuVisible(menuVisible === id ? null : id);
   };
 
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setMenuVisible(null);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const [showConfirm, setShowConfirm] = useState(false);
-    const [actionType, setActionType] = useState(null);
+  const [actionType, setActionType] = useState(null);
 
-    const handleActionClick = (type) => {
-        setActionType(type);
-        setShowConfirm(true);
-    };
+  const handleActionClick = (type) => {
+    setActionType(type);
+    setShowConfirm(true);
+  };
 
-    const handleConfirm = () => {
-        if (actionType === 'block') {
-            // Handle block logic here
-            console.log("Blocking rider...");
-        } else if (actionType === 'delete') {
-            // Handle delete logic here
-            console.log("Deleting rider...");
-        }
-        setShowConfirm(false);
-        setActionType(null); 
-    };
+  const handleConfirm = () => {
+    if (actionType === 'block') {
+      console.log("Blocking rider...");
+    } else if (actionType === 'delete') {
+      console.log("Deleting rider...");
+    }
+    setShowConfirm(false);
+    setActionType(null);
+  };
 
-    const handleCancel = () => {
-        setShowConfirm(false);
-        setActionType(null); 
-    };
+  const handleCancel = () => {
+    setShowConfirm(false);
+    setActionType(null);
+  };
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const handleAddRiderClick = () => {
-        navigate('/add-rider'); 
-    };
+  const handleAddRiderClick = () => {
+    navigate('/add-rider');
+  };
+
   return (
     <main className="main-content">
       {/* Top row of overview and profile image */}
@@ -105,33 +113,32 @@ const RiderPage = () => {
           </div>
           <div className="summary-item">
             <div>
-            <div className="new-rider" onClick={handleAddRiderClick}> {/* Add onClick handler */}
+              <div className="new-rider" onClick={handleAddRiderClick}>
                 <img src={newRider} alt="New Rider" />
                 <span>Add New Rider</span>
-            </div>
-                <div className="new-rider-btn">
-                    <button onClick={() => handleActionClick('block')} className="rider-btn-item"> 
-                        <img src={block} alt="Block" />
-                        <span>Block</span>
-                    </button>
-                    <button onClick={() => handleActionClick('delete')} className="rider-btn-item">
-                        <img src={del} alt="Delete" />
-                        <span>Delete</span>
-                    </button>
-                </div>
+              </div>
+              <div className="new-rider-btn">
+                <button onClick={() => handleActionClick('block')} className="rider-btn-item">
+                  <img src={block} alt="Block" />
+                  <span>Block</span>
+                </button>
+                <button onClick={() => handleActionClick('delete')} className="rider-btn-item">
+                  <img src={del} alt="Delete" />
+                  <span>Delete</span>
+                </button>
+              </div>
             </div>
 
             {showConfirm && (
-                <ConfirmationDialog 
-                    actionType={actionType}
-                    onConfirm={handleConfirm} 
-                    onCancel={handleCancel} 
-                />
+              <ConfirmationDialog
+                actionType={actionType}
+                onConfirm={handleConfirm}
+                onCancel={handleCancel}
+              />
             )}
-        </div>
+          </div>
         </div>
       </section>
-
 
       <div className="rider-data">
         <div className="filter-rider">
@@ -148,16 +155,12 @@ const RiderPage = () => {
       </div>
 
       <div className="rider-data-card">
-        {/* Deleted Riders Alert */}
         {filter === 'Deleted Rider' && (
           <div className="alert-box">
             <span className="alert-text">Deleted users will be removed from the list automatically after 15 days.</span>
             <button className="alert-close-btn" onClick={() => setFilter('')}>×</button>
           </div>
         )}
-
-        {/* Filter Tabs */}
-        {/* Search and Filter */}
         <div className="card-header">
           <input
             type="text"
@@ -204,11 +207,11 @@ const RiderPage = () => {
                     <td className="action-cell">
                       <button className="action-btn" onClick={() => handleMenuToggle(rider.id)}>⋮</button>
                       {menuVisible === rider.id && (
-                        <div className="action-menu">
+                        <div className="action-menu" ref={menuRef}>
                           <button onClick={() => handleActionClick('unblock')}>Unblock</button>
                           <button onClick={() => handleActionClick('resume')}>Resume</button>
-                          <button  onClick={() => handleActionClick('block')}>Block</button>
-                          <button  onClick={() => handleActionClick('delete')}>Delete</button>
+                          <button onClick={() => handleActionClick('block')}>Block</button>
+                          <button onClick={() => handleActionClick('delete')}>Delete</button>
                         </div>
                       )}
                     </td>
@@ -223,8 +226,6 @@ const RiderPage = () => {
           </table>
         </div>
       </div>
-
-
     </main>
   );
 };
