@@ -172,7 +172,7 @@ text-decoration: none;
 }
 
 .add-btn {
-  background: linear-gradient(135deg, #28a745, #218838);
+  background: linear-gradient(135deg, #0004ff, #06b6e6);
   color: white;
   padding: 10px 20px;
   border: none;
@@ -183,7 +183,7 @@ text-decoration: none;
 }
 
 .add-btn:hover {
-  background: linear-gradient(135deg, #218838, #1e7e34);
+  background:linear-gradient(135deg, #0004ff, #06b6e6);
 }
 
 /* Responsive Design */

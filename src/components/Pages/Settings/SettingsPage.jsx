@@ -31,7 +31,7 @@ const SettingsPage = () => {
   return (
     <main className="main-content">
       {/* Page Title */}
-      <MainTop title="Add Employee" />
+      <MainTop title="Settings" />
 
       {/* Two Columns in a Row */}
       <div className="settings-container">
