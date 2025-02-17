@@ -36,18 +36,19 @@
 }
 
 .view-all-btn {
-  background: linear-gradient(135deg, #007bff, #0056b3);
-  color: white;
+  background-color: #ffffff;
+  color: rgb(23, 16, 236);
   padding: 6px 12px;
   border-radius: 5px;
   border: none;
   cursor: pointer;
   font-size: 14px;
   transition: all 0.3s;
+  text-decoration: none;
 }
 
 .view-all-btn:hover {
-  background: linear-gradient(135deg, #0056b3, #003d82);
+text-decoration: none;
 }
 
 .employees-list,
@@ -159,13 +160,11 @@
   background: rgba(0, 0, 0, 0.05);
 }
 
-/* Active Popup */
 .popup-menu.show {
   opacity: 1;
   transform: scale(1);
 }
 
-/* Add New Buttons */
 .add-btn-container {
   display: flex;
   justify-content: center;
@@ -207,6 +206,7 @@
   border: 1px solid #ddd;
   border-radius: 15px;
   font-size: 14px;
+  height: 40px;
 }
 
 .table-container {
@@ -214,8 +214,9 @@
   overflow-x: auto;
   background-color: #fff;
   padding-inline: 15px;
-  padding-block-end: 75px;
+  padding-block-end: 45px;
   border-radius: 12px;
+  margin-bottom: 50px;
 }
 
 .employee-table {
@@ -236,7 +237,7 @@
 }
 
 .employee-table th {
-  background-color: #f4f4f4;
+  margin-inline: 0;
 }
 
 .role-badge,

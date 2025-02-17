@@ -9,11 +9,11 @@ const SettingsPage = () => {
   const navigate = useNavigate();
 
   const employees = [
-    { name: "John Doe", role: "Admin" },
-    { name: "Jane Smith", role: "Cashier" },
-    { name: "Michael Brown", role: "Captain" },
-    { name: "Emily Johnson", role: "Moderator" },
-    { name: "Chris Evans", role: "Viewer" },
+    { name: "Sachin Tendulkar", role: "Admin" },
+    { name: "James Anderson", role: "Cashier" },
+    { name: "Michell Starc    ", role: "Captain" },
+    { name: "Mahendra Dhoni", role: "Moderator" },
+    { name: "Dale Stayen", role: "Viewer" },
   ];
 
   const roles = ["Admin", "Cashier", "Captain", "Moderator", "Viewer"];
