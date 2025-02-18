@@ -62,7 +62,7 @@ const OtpVerifyPage = () => {
                     </div>
                     <button
                         type="submit"
-                        className="submit-button"
+                        className="submit-button-otp"
                         onClick={handleSubmit}
                         ref={submitButtonRef}
                     >
