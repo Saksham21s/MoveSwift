@@ -82,8 +82,6 @@ const LogoutPage = () => {
               {passwordVisible ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
-
-          {/* Replaced anchor tag with button */}
           <button 
             type="button" 
             className="forgot-password" 

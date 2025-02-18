@@ -3,11 +3,16 @@ import { useNavigate } from "react-router-dom";
 import "../../../styles/style.min.css";
 import "./settings.css";
 import MainTop from "../Navbar/MainTop";
+import DialogueBox from "../Riders/ConfirmationDialog";
 
 const SettingsPage = () => {
   const [menuOpen, setMenuOpen] = useState(null);
   const menuRefs = useRef({});
   const navigate = useNavigate();
+  const [selectedItem, setSelectedItem] = useState(null); 
+  const [showPopup, setShowPopup] = useState(false); 
+  const [popupAction, setPopupAction] = useState(null); 
+
 
   const employees = [
     { name: "Jhon", role: "Admin" },
@@ -29,6 +34,25 @@ const SettingsPage = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [menuOpen]);
+
+  const handleMenuClick = (item, type) => {
+    setSelectedItem(item);
+    setPopupAction(type); 
+    setShowPopup(true);
+    setMenuOpen(null);
+  };
+
+  const handlePopupConfirm = () => {
+    if (popupAction === "delete") {
+      console.log(`Deleting ${selectedItem.name || selectedItem} (Employee/Role)`);
+    } else if (popupAction === "edit") {
+      console.log(`Editing ${selectedItem.name || selectedItem} (Employee/Role)`);
+
+    }
+    setShowPopup(false);
+    setSelectedItem(null);
+    setPopupAction(null);
+  };
 
   return (
     <main className="main-content">
@@ -61,9 +85,8 @@ const SettingsPage = () => {
 
                     {menuOpen === popUpId && (
                       <div ref={(el) => (menuRefs.current[popUpId] = el)} className="popup-menu">
-                        <button>Edit</button>
-                        <button>Set as Inactive</button>
-                        <button>Delete</button>
+                        <button onClick={() => handleMenuClick(emp, "edit")}>Edit</button>
+                        <button onClick={() => handleMenuClick(emp, "delete")}>Delete</button>
                       </div>
                     )}
                   </div>
@@ -104,9 +127,8 @@ const SettingsPage = () => {
 
                     {menuOpen === popUpId && (
                       <div ref={(el) => (menuRefs.current[popUpId] = el)} className="popup-menu">
-                        <button>Edit</button>
-                        <button>Set as Inactive</button>
-                        <button>Delete</button>
+                        <button onClick={() => handleMenuClick(role, "edit")}>Edit</button>
+                        <button onClick={() => handleMenuClick(role, "delete")}>Delete</button>
                       </div>
                     )}
                   </div>
@@ -121,6 +143,15 @@ const SettingsPage = () => {
           </div>
         </div>
       </div>
+          {showPopup && (
+        <DialogueBox
+          actionType={popupAction}
+          title={`${popupAction === "delete" ? "Delete" : "Edit"} ${selectedItem.name || selectedItem} (Employee/Role)`}
+          message={`Are you sure you want to ${popupAction} ${selectedItem.name || selectedItem}?`}
+          onConfirm={handlePopupConfirm}
+          onCancel={() => setShowPopup(false)}
+        />
+      )}
     </main>
   );
 };

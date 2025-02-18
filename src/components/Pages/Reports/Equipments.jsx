@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../../../styles/style.min.css";
 import "./reports.css";
 import MainTop from "../Navbar/MainTop";
@@ -11,7 +10,8 @@ const ComplaintsPage = () => {
   const [dropdownState, setDropdownState] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
   const [selectedComplaint, setSelectedComplaint] = useState(null);
-  const navigate = useNavigate();
+  const [showViewPopup, setShowViewPopup] = useState(false);
+  const [showResolvePopup, setShowResolvePopup] = useState(false);
 
   const names = [
     "Aman Kumar", "Rahul Sharma", "Sakshi Verma", "Deepak Yadav", "Neha Singh", "Ravi Patel",
@@ -21,28 +21,26 @@ const ComplaintsPage = () => {
     "Sandeep Goyal", "Varun Saxena", "Monika Reddy"
   ];
 
-
-    const [complaints, setComplaints] = useState(() => {
-      return names.map((name, index) => {
-        const equipment = ["10/12", "14", "16/16", "11/11", "12/12", "17/17"][index % 6];
-        return {
-          id: index + 1,
-          riderId: `R00${index + 1}`,
-          name,
-          equipmentProvided: equipment,
-          status: equipment.split('/')[0] === equipment.split('/')[1] ? "Resolved" : "Unresolved",
-          riderImage: `https://randomuser.me/api/portraits/${index % 2 === 0 ? "men" : "women"}/${index % 24}.jpg`,
-        };
-      });
+  const [complaints, setComplaints] = useState(() => {
+    return names.map((name, index) => {
+      const equipment = ["10/12", "14", "16/16", "11/11", "12/12", "17/17"][index % 6];
+      return {
+        id: index + 1,
+        riderId: `R00${index + 1}`,
+        name,
+        equipmentProvided: equipment,
+        status: equipment.split('/')[0] === equipment.split('/')[1] ? "Resolved" : "Unresolved",
+        riderImage: `https://randomuser.me/api/portraits/${index % 2 === 0 ? "men" : "women"}/${index % 24}.jpg`,
+      };
     });
-    
+  });
 
   const filteredComplaints = complaints.filter(
     (complaint) =>
       (filter === "All" || complaint.status === filter) &&
       (complaint.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-       complaint.riderId.toLowerCase().includes(searchTerm.toLowerCase()) || 
-       complaint.equipmentProvided.toLowerCase().includes(searchTerm.toLowerCase()))
+        complaint.riderId.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        complaint.equipmentProvided.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   const getStatusClass = (equipment) => {
@@ -54,6 +52,17 @@ const ComplaintsPage = () => {
   };
 
   const [alertMessage, setAlertMessage] = useState(null);
+
+  const handleViewClick = (complaint) => {
+    setSelectedComplaint(complaint);
+    setShowViewPopup(true);
+  };
+
+  const handleResolveClick = (complaint) => {
+    setSelectedComplaint(complaint);
+    setShowResolvePopup(true);
+  };
+
   const handleDeleteClick = (complaint) => {
     setSelectedComplaint(complaint);
     setShowDialog(true);
@@ -61,32 +70,36 @@ const ComplaintsPage = () => {
 
   const handleConfirmDelete = () => {
     setComplaints(complaints.filter(c => c.id !== selectedComplaint.id));
-    setAlertMessage(` ${selectedComplaint.name} deleted.`);
+    setAlertMessage(`${selectedComplaint.name} deleted.`);
     setTimeout(() => setAlertMessage(null), 2000);
     setShowDialog(false);
     setSelectedComplaint(null);
+  };
+
+  const handleViewConfirm = () => {
+    console.log("Viewing complaint:", selectedComplaint);
+    setShowViewPopup(false);
+  };
+
+  const handleResolveConfirm = () => {
+    console.log("Resolving complaint:", selectedComplaint);
+    setShowResolvePopup(false);
   };
 
   return (
     <main className="main-content">
       <MainTop title="Equipments" />
       <div className="filter-buttons">
-        <button
-          onClick={() => setFilter("Resolved")}
-          className={filter === "Resolved" ? "active" : ""}
-        >
+        <button onClick={() => setFilter("Resolved")} className={filter === "Resolved" ? "active" : ""}>
           Complete
         </button>
-        <button
-          onClick={() => setFilter("Unresolved")}
-          className={filter === "Unresolved" ? "active" : ""}
-        >
+        <button onClick={() => setFilter("Unresolved")} className={filter === "Unresolved" ? "active" : ""}>
           Incomplete
         </button>
       </div>
 
       <div className="complaints-container">
-      {alertMessage && <div className="alert-message" style={{ backgroundColor: "#FFD580", color: "black", padding: "10px", borderRadius: "5px", textAlign: "center", marginBottom: "10px" ,width:"max-content",marginInline:"auto"}}>{alertMessage}</div>}
+        {alertMessage && <div className="alert-message" style={{ backgroundColor: "#FFD580", color: "black", padding: "10px", borderRadius: "5px", textAlign: "center", marginBottom: "10px" ,width:"max-content",marginInline:"auto"}}>{alertMessage}</div>}
         <div className="filter-search-section">
           <input
             type="text"
@@ -113,7 +126,7 @@ const ComplaintsPage = () => {
               return (
                 <tr key={complaint.id}>
                   <td>{index + 1}</td>
-                  <td>{complaint.riderId}</td> 
+                  <td>{complaint.riderId}</td>
                   <td className="rider-info">
                     <img src={complaint.riderImage} alt={complaint.name} className="rider-img" />
                     <span>{complaint.name}</span>
@@ -134,8 +147,8 @@ const ComplaintsPage = () => {
                       </button>
                       {dropdownState === complaint.id && (
                         <div className="dropdown-menu">
-                          <button onClick={() => navigate(`/view/${complaint.id}`)}>View</button>
-                          <button onClick={() => navigate(`/resolve/${complaint.id}`)}>Resolved</button>
+                          <button onClick={() => handleViewClick(complaint)}>View</button>
+                          <button onClick={() => handleResolveClick(complaint)}>Resolve</button>
                           <button onClick={() => handleDeleteClick(complaint)}>Delete</button>
                         </div>
                       )}
@@ -149,10 +162,30 @@ const ComplaintsPage = () => {
       </div>
 
       {showDialog && (
-        <DialogueBox 
-          actionType="delete" 
-          onConfirm={handleConfirmDelete} 
-          onCancel={() => setShowDialog(false)} 
+        <DialogueBox
+          actionType="delete"
+          onConfirm={handleConfirmDelete}
+          onCancel={() => setShowDialog(false)}
+        />
+      )}
+
+      {showViewPopup && (
+        <DialogueBox
+          actionType="view"
+          title="View Equipment Details"
+          message={`View details for ${selectedComplaint?.name}?`}
+          onConfirm={handleViewConfirm}
+          onCancel={() => setShowViewPopup(false)}
+        />
+      )}
+
+      {showResolvePopup && (
+        <DialogueBox
+          actionType="resolve"
+          title="Resolve Equipment Issue"
+          message={`Mark equipment issue as resolved for ${selectedComplaint?.name}?`}
+          onConfirm={handleResolveConfirm}
+          onCancel={() => setShowResolvePopup(false)}
         />
       )}
     </main>

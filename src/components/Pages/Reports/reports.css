@@ -161,6 +161,7 @@
   color: whitesmoke;
   cursor: pointer;
   transition: background 0.3s ease, color 0.3s ease;
+  border: none;
 }
 
 .filter-buttons button:hover {

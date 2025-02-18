@@ -11,7 +11,6 @@ const CashStatus = ({ actualCash, receivedCash }) => {
     const balanceCash = actualCash - receivedCash;
     const balanceCashPercentage = ((balanceCash / actualCash) * 100).toFixed(2);
 
-    // Sample weekly data 
     const weeklyActualCash = [42000, 65000, 94000, 47000, 72000, 80000, 56000];
     const weeklyReceivedCash = [42000, 65000, 94000, 47000, 72000, 80000, 56000];
 
@@ -102,19 +101,19 @@ const CashStatus = ({ actualCash, receivedCash }) => {
             <div className="card">
                 <div className="card-body">
                     <h2 className="card-title">This Week Cash Status</h2>
-                    <p>As of Oct 15, 2021, 10:15 AM</p>
+                    <p>As of Oct 15, 2021, 10:15 AM</p><br />
 
                     <div className="status-container">
                         <div className="chart-section">
                             <Bar data={chartData} options={chartOptions} />
                         </div>
-                        <div className="cash-details">
-                            <div className="detail">Actual Cash <span>{actualCash.toLocaleString()}</span></div>
-                            <div className="detail" style={{ borderTop: "0.5px solid gray" }}>Received Cash<span>{receivedCash.toLocaleString()}</span></div>
-                            <div className="detail" style={{ borderTop: "0.5px solid gray" }}>Balance Cash <span>{balanceCash.toLocaleString()}</span></div>
-                            <div className="detail" style={{ borderTop: "0.5px solid gray" }}>Balance Cash % <span>{balanceCashPercentage}%</span></div>
-                        </div>
                     </div>
+                </div>
+                <div className="cash-details">
+                    <div className="detail">Actual Cash <span>{actualCash.toLocaleString()}</span></div>
+                    <div className="detail" >Received Cash<span>{receivedCash.toLocaleString()}</span></div>
+                    <div className="detail" >Balance Cash <span>{balanceCash.toLocaleString()}</span></div>
+                    <div className="detail" >Balance Cash % <span>{balanceCashPercentage}%</span></div>
                 </div>
             </div>
         </section>

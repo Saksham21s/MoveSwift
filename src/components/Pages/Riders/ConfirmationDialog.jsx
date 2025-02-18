@@ -5,7 +5,8 @@ import blockUser from '../../../assets/block-user.png';
 import unblockUser from '../../../assets/delete-user.png';
 import resumeUser from '../../../assets/block-user.png';
 
-const ConfirmationDialog = ({ actionType, onConfirm, onCancel }) => {
+const ConfirmationDialog = ({ actionType, onConfirm, onCancel, title, message }) => {  
+
     const getImage = () => {
         switch (actionType) {
             case 'block': return blockUser;
@@ -17,28 +18,38 @@ const ConfirmationDialog = ({ actionType, onConfirm, onCancel }) => {
     };
 
     const getHeading = () => {
-        switch (actionType) {
-            case 'block': return "Block Rider(s) ?";
-            case 'delete': return "Delete Rider(s) ?";
-            case 'unblock': return "Unblock Rider(s) ?";
-            case 'resume': return "Resume Rider(s) ?";
-            default: return "Confirmation";
-        }
+        return title || (() => {
+            switch (actionType) {
+                case 'block': return "Block Rider(s) ?";
+                case 'delete': return "Delete Rider(s) ?";
+                case 'unblock': return "Unblock Rider(s) ?";
+                case 'resume': return "Resume Rider(s) ?";
+                case 'view': return "View Complaint Details"; 
+                case 'resolve': return "Resolve Complaint";
+                default: return "Confirmation";
+            }
+        })();
     };
 
     const getParagraph = () => {
-        switch (actionType) {
-            case 'block':
-                return "Clicking the proceed button will deny the rider(s) access into the entire system. Would you like to proceed?";
-            case 'delete':
-                return "Clicking the proceed button will delete the rider(s) from the Active list and will be added to the Deleted list. Would you like to proceed?";
-            case 'unblock':
-                return "Clicking the proceed button will provide the rider(s) access into the entire system and will be added to the Active list. Would you like to proceed?";
-            case 'resume':
-                return "Clicking the proceed button will provide the rider(s) access into the entire system and will be added to the Active list. Would you like to proceed?";
-            default:
-                return "Are you sure you want to proceed with this action?";
-        }
+        return message || (() => { 
+            switch (actionType) {
+                case 'block':
+                    return "Clicking the proceed button will deny the rider(s) access into the entire system. Would you like to proceed?";
+                case 'delete':
+                    return "Clicking the proceed button will delete the rider(s) from the Active list and will be added to the Deleted list. Would you like to proceed?";
+                case 'unblock':
+                    return "Clicking the proceed button will provide the rider(s) access into the entire system and will be added to the Active list. Would you like to proceed?";
+                case 'resume':
+                    return "Clicking the proceed button will provide the rider(s) access into the entire system and will be added to the Active list. Would you like to proceed?";
+                case 'view':
+                    return "Clicking Proceed will show more details."; // Message for view
+                case 'resolve':
+                    return "Clicking Proceed will mark the complaint as resolved."; // Message for resolve
+                default:
+                    return "Are you sure you want to proceed with this action?";
+            }
+        })();
     };
 
     return (
@@ -62,12 +73,12 @@ const ConfirmationDialog = ({ actionType, onConfirm, onCancel }) => {
                             <button className="button cancel" onClick={onCancel}>Cancel</button>
                         </div>
                     </div>
+                    <button className="close-button" onClick={onCancel}>
+                        <svg className="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
                 </div>
-                <button className="close-button" onClick={onCancel}>
-                    <svg className="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
             </div>
         </div>
     );
@@ -77,6 +88,8 @@ ConfirmationDialog.propTypes = {
     actionType: PropTypes.string.isRequired,
     onConfirm: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
+    title: PropTypes.string,
+    message: PropTypes.string, 
 };
 
 export default ConfirmationDialog;

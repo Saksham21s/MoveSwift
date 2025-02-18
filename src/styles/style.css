@@ -170,124 +170,6 @@ html {
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
-/*------- Cash Status Styles -----------------*/
-.cash-status {
-  margin-bottom: 20px;
-  padding: 10px;
-}
-.cash-status .card {
-  background-color: rgb(255, 255, 255);
-  border: none;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  border-radius: 12px;
-  overflow: hidden;
-}
-.cash-status .card .card-body {
-  padding: 25px;
-}
-.cash-status .card .card-body .card-title {
-  color: #333;
-  font-weight: 700;
-  margin-bottom: 10px;
-  font-size: 22px;
-  line-height: 1.3;
-  letter-spacing: 0.5px;
-}
-.cash-status .card .card-body .card-title p {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.4;
-  letter-spacing: 0.2px;
-  color: #666;
-}
-.cash-status .card .card-body .chart-section {
-  height: 400px;
-  width: 70%;
-  margin: 20px;
-}
-.cash-status .card .card-body .img-tp-txt {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 25px;
-}
-.cash-status .card .card-body .img-tp-txt span {
-  margin: 0 15px;
-  display: inline-flex;
-  align-items: center;
-}
-.cash-status .card .card-body .img-tp-txt #box-clr1 {
-  background-color: #3498db;
-  height: 8px;
-  width: 15px;
-  margin-right: 5px;
-  border-radius: 3px;
-}
-.cash-status .card .card-body .img-tp-txt #box-clr2 {
-  background-color: #ffb7d5;
-  height: 8px;
-  width: 15px;
-  margin-right: 5px;
-  border-radius: 3px;
-}
-.cash-status .card .card-body .status-container {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
-.cash-status .card .card-body .status-container .cash-details {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));
-  gap: 20px;
-  text-align: left;
-}
-.cash-status .card .card-body .status-container .cash-details .detail {
-  padding: 15px;
-  color: #777;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-.cash-status .card .card-body .status-container .cash-details .detail:last-child {
-  border-bottom: none;
-}
-.cash-status .card .card-body .status-container .cash-details .detail span {
-  color: #333;
-  padding-top: 18px;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 1.4;
-  letter-spacing: 0.2px;
-}
-@media screen and (min-width: 769px) {
-  .cash-status .card .card-body .status-container {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 30px;
-  }
-  .cash-status .card .card-body .cash-details {
-    grid-template-columns: repeat(2, 1fr);
-    position: relative;
-    top: -46px;
-    border-left: 1px solid grey;
-  }
-  .cash-status .card .card-body .cash-details .detail {
-    padding-block: 50px;
-  }
-}
-@media screen and (max-width: 768px) {
-  .cash-status .card .card-body .img-tp-txt {
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  .cash-status .card .card-body .status-container {
-    flex-direction: column;
-  }
-  .cash-status .card .card-body .cash-details {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* ----------------Top Lists Styles ---------------*/
 .top-lists {
   display: flex;
@@ -566,13 +448,6 @@ html {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-}
-.rider-data-card .card-header .search-bar {
-  width: 30%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 15px;
   padding: 10px;
 }
 .rider-data-card .card-header .filter-btn {

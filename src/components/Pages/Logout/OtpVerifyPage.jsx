@@ -50,7 +50,7 @@ const OtpVerifyPage = () => {
                             <input
                                 key={index}
                                 ref={(el) => (inputRefs.current[index] = el)}
-                                type="text"
+                                type="password" 
                                 value={digit}
                                 onChange={(e) => handleOtpChange(e, index)}
                                 onKeyDown={(e) => handleKeyDown(e, index)}

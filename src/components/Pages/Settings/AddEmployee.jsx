@@ -3,12 +3,16 @@ import "../../../styles/style.min.css";
 import "./settings.css";
 import MainTop from "../Navbar/MainTop";
 import { useNavigate } from "react-router-dom";
+import DialogueBox from "../Riders/ConfirmationDialog"; 
 
 const AddEmployeePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(null);
   const menuRef = useRef(null);
   const navigate = useNavigate();
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupAction, setPopupAction] = useState(null);
 
   const employees = [
     { id: 1, name: "John Doe", role: "Admin", email: "john@example.com", mobile: "9876543210", status: "Active" },
@@ -26,9 +30,10 @@ const AddEmployeePage = () => {
     emp.mobile.includes(searchQuery)
   );
 
-  const handleMenuOpen = (e, popUpId) => {
+  const handleMenuOpen = (e, popUpId, employee) => {
     e.stopPropagation();
     setMenuOpen(menuOpen === popUpId ? null : popUpId);
+    setSelectedEmployee(employee); 
   };
 
   useEffect(() => {
@@ -43,6 +48,17 @@ const AddEmployeePage = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const handlePopupConfirm = () => {
+    if (popupAction === "delete") {
+      console.log(`Deleting ${selectedEmployee.name}`);
+    } else if (popupAction === "edit") {
+      console.log(`Editing ${selectedEmployee.name}`);
+    }
+    setShowPopup(false);
+    setSelectedEmployee(null);
+    setPopupAction(null);
+  };
 
   return (
     <main className="main-content">
@@ -101,16 +117,15 @@ const AddEmployeePage = () => {
                   <td className="popup-container" ref={menuRef}>
                     <button
                       className="menu-button"
-                      onClick={(e) => handleMenuOpen(e, popUpId)}
+                      onClick={(e) => handleMenuOpen(e, popUpId, emp)} // Pass the employee object
                     >
                       ⋮
                     </button>
 
                     {menuOpen === popUpId && (
                       <div className="popup-menu">
-                        <button>Edit</button>
-                        <button>Set as Inactive</button>
-                        <button>Delete</button>
+                        <button onClick={() => { setPopupAction("edit"); setShowPopup(true); }}>Edit</button> {/* Set action and show popup */}
+                        <button onClick={() => { setPopupAction("delete"); setShowPopup(true); }}>Delete</button> {/* Set action and show popup */}
                       </div>
                     )}
                   </td>
@@ -120,6 +135,15 @@ const AddEmployeePage = () => {
           </tbody>
         </table>
       </div>
+      {showPopup && (
+        <DialogueBox
+          actionType={popupAction}
+          title={`${popupAction === "delete" ? "Delete" : "Edit"} Employee`}
+          message={`Are you sure you want to ${popupAction} ${selectedEmployee.name}?`}
+          onConfirm={handlePopupConfirm}
+          onCancel={() => setShowPopup(false)}
+        />
+      )}
     </main>
   );
 };

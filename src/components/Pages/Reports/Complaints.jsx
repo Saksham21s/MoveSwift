@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../../../styles/style.min.css";
 import "./reports.css";
 import MainTop from "../Navbar/MainTop";
@@ -36,7 +35,19 @@ const ComplaintsPage = () => {
     }))
   );
   const [alertMessage, setAlertMessage] = useState(null);
-  const navigate = useNavigate();
+  const [showViewPopup, setShowViewPopup] = useState(false);
+  const [showResolvePopup, setShowResolvePopup] = useState(false);
+
+
+  const handleViewClick = (complaint) => {
+    setSelectedComplaint(complaint);
+    setShowViewPopup(true);
+  };
+
+  const handleResolveClick = (complaint) => {
+    setSelectedComplaint(complaint);
+    setShowResolvePopup(true);
+  };
 
   const handleDeleteClick = (complaint) => {
     setSelectedComplaint(complaint);
@@ -45,10 +56,20 @@ const ComplaintsPage = () => {
 
   const handleConfirmDelete = () => {
     setComplaints(complaints.filter(c => c.id !== selectedComplaint.id));
-    setAlertMessage(` ${selectedComplaint.name} deleted.`);
+    setAlertMessage(`${selectedComplaint.name} deleted.`);
     setTimeout(() => setAlertMessage(null), 2000);
     setShowDialog(false);
     setSelectedComplaint(null);
+  };
+
+  const handleViewConfirm = () => {
+    console.log("Viewing complaint:", selectedComplaint);
+    setShowViewPopup(false);
+  };
+
+  const handleResolveConfirm = () => {
+    console.log("Resolving complaint:", selectedComplaint);
+    setShowResolvePopup(false);
   };
 
   const filteredComplaints = complaints.filter(
@@ -71,7 +92,7 @@ const ComplaintsPage = () => {
         </button>
       </div>
       <div className="complaints-container">
-      {alertMessage && <div className="alert-message" style={{ backgroundColor: "#FFD580", color: "black", padding: "10px", borderRadius: "5px", textAlign: "center", marginBottom: "10px" ,width:"max-content",marginInline:"auto"}}>{alertMessage}</div>}
+        {alertMessage && <div className="alert-message" style={{ backgroundColor: "#FFD580", color: "black", padding: "10px", borderRadius: "5px", textAlign: "center", marginBottom: "10px" ,width:"max-content",marginInline:"auto"}}>{alertMessage}</div>}
         <div className="filter-search-section">
           <input
             type="text"
@@ -118,8 +139,8 @@ const ComplaintsPage = () => {
                     </button>
                     {dropdownState === complaint.id && (
                       <div className="dropdown-menu">
-                        <button onClick={() => navigate(`/view/${complaint.id}`)}>View</button>
-                        <button onClick={() => navigate(`/resolve/${complaint.id}`)}>Resolve</button>
+                        <button onClick={() => handleViewClick(complaint)}>View</button>
+                        <button onClick={() => handleResolveClick(complaint)}>Resolve</button>
                         <button onClick={() => handleDeleteClick(complaint)}>Delete</button>
                       </div>
                     )}
@@ -131,10 +152,30 @@ const ComplaintsPage = () => {
         </table>
       </div>
       {showDialog && (
-        <DialogueBox 
-          actionType="delete" 
-          onConfirm={handleConfirmDelete} 
-          onCancel={() => setShowDialog(false)} 
+        <DialogueBox
+          actionType="delete"
+          onConfirm={handleConfirmDelete}
+          onCancel={() => setShowDialog(false)}
+        />
+      )}
+
+      {showViewPopup && (
+        <DialogueBox
+          actionType="view"
+          title="View Complaint Details"
+          message={`View details for ${selectedComplaint?.name}?`}
+          onConfirm={handleViewConfirm}
+          onCancel={() => setShowViewPopup(false)}
+        />
+      )}
+
+      {showResolvePopup && (
+        <DialogueBox
+          actionType="resolve"
+          title="Resolve Complaint"
+          message={`Mark complaint as resolved for ${selectedComplaint?.name}?`}
+          onConfirm={handleResolveConfirm}
+          onCancel={() => setShowResolvePopup(false)}
         />
       )}
     </main>
