@@ -117,15 +117,15 @@ const AddEmployeePage = () => {
                   <td className="popup-container" ref={menuRef}>
                     <button
                       className="menu-button"
-                      onClick={(e) => handleMenuOpen(e, popUpId, emp)} // Pass the employee object
+                      onClick={(e) => handleMenuOpen(e, popUpId, emp)} 
                     >
                       ⋮
                     </button>
 
                     {menuOpen === popUpId && (
                       <div className="popup-menu">
-                        <button onClick={() => { setPopupAction("edit"); setShowPopup(true); }}>Edit</button> {/* Set action and show popup */}
-                        <button onClick={() => { setPopupAction("delete"); setShowPopup(true); }}>Delete</button> {/* Set action and show popup */}
+                        <button onClick={() => { setPopupAction("edit"); setShowPopup(true); }}>Edit</button> 
+                        <button onClick={() => { setPopupAction("delete"); setShowPopup(true); }}>Delete</button>
                       </div>
                     )}
                   </td>

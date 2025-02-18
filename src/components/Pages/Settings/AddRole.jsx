@@ -40,14 +40,12 @@ const AddRolePage = () => {
       </div>
 
       <div className="add-role-container">
-      {/* Add Role Section */}
       <div className="add-role">
         <label className="role-label"> Role Name</label><br />
         <input type="text" className="role-input" placeholder="Enter role" />
       </div>
 
       <><p>Choose the previleges for the role</p><br /></>
-      {/* Permissions Section */}
       <div className="permissions-container">
         {permissionsData.map(({ category, permissions }) => (
           <div key={category} className="permission-row">

@@ -58,7 +58,6 @@ const SettingsPage = () => {
     <main className="main-content">
       <MainTop title="Settings" />
       <div className="settings-container">
-        {/* Employees Section */}
         <div className="employees-section">
           <div className="section-header">
             <h2>Employees</h2>

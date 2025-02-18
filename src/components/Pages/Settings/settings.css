@@ -413,9 +413,6 @@
   background: #0056b3;
 }
 
-/* Responsive Adjustments */
-
-/* Tablets */
 @media (max-width: 1024px) {
   .add-role-container {
     padding-inline: 80px;

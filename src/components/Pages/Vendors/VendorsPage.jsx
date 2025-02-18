@@ -6,10 +6,7 @@ import MainTop from '../Navbar/MainTop';
 const OverviewPage = () => {
   return (
     <main className="main-content">
-      {/* Top row of overview and profile image */}
       <MainTop title="Vendors" /> 
-
-      {/* Tabs will be activated sooon in future section */}
       <div className="tabsoon">
         <div id="img-aeroplane"> <img src={aeroplane} alt="Aeroplane Image" /></div>
         <div className="text">This Tab Will be activated soon in future</div>

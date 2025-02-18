@@ -43,9 +43,9 @@ const ConfirmationDialog = ({ actionType, onConfirm, onCancel, title, message })
                 case 'resume':
                     return "Clicking the proceed button will provide the rider(s) access into the entire system and will be added to the Active list. Would you like to proceed?";
                 case 'view':
-                    return "Clicking Proceed will show more details."; // Message for view
+                    return "You will able to see this section soon."; 
                 case 'resolve':
-                    return "Clicking Proceed will mark the complaint as resolved."; // Message for resolve
+                    return "Your Query will be resolved soon."; 
                 default:
                     return "Are you sure you want to proceed with this action?";
             }
