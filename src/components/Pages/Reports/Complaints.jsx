@@ -110,7 +110,7 @@ const ComplaintsPage = () => {
               <th>Type</th>
               <th>Complaint</th>
               <th>Status</th>
-              <th>Actions</th>
+              <th style={{textAlign:'end'}}>Actions</th>
             </tr>
           </thead>
           <tbody>

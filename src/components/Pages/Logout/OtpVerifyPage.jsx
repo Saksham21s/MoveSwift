@@ -78,7 +78,7 @@ const OtpVerifyPage = () => {
                     </div>
                     <div className="button-container">
                         <button onClick={handleSubmit} className="submit-button-email">
-                            Send me OTP on <br /> usxxxxxxxxx123@gxxxl.com
+                            Send me OTP on <br /> <strong style={{ color: "black", fontWeight: 500 }}>usxxxxxxxxx123@gxxxl.com</strong>
                         </button>
                     </div>
                 </div>

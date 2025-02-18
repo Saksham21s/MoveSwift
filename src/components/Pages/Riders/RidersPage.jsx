@@ -453,7 +453,7 @@ const RiderPage = () => {
                 <th>Batch</th>
                 <th>Contract</th>
                 <th>Zone</th>
-                <th>Actions</th>
+                <th style={{textAlign:'end'}}>Actions</th>
               </tr>
             </thead>
             <tbody>

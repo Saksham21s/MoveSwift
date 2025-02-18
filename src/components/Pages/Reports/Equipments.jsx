@@ -117,7 +117,7 @@ const ComplaintsPage = () => {
               <th>Rider</th>
               <th>Equipments Provided</th>
               <th>Status</th>
-              <th>Actions</th>
+              <th style={{textAlign:'end'}}>Actions</th>
             </tr>
           </thead>
           <tbody>
