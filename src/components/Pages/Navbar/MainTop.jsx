@@ -24,7 +24,6 @@ const MainTop = ({ title }) => {
     );
 };
 
-// ✅ Define PropTypes
 MainTop.propTypes = {
     title: PropTypes.string.isRequired, 
 };

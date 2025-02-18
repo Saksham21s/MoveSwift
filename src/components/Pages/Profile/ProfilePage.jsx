@@ -10,10 +10,7 @@ const ProfilePage = () => {
 
   return (
     <main className="main-content">
-      {/* Top row of overview and profile image */}
       <MainTop title="Profile" />
-
-      {/* Tabs will be activated soon in the future section */}
       <div className="action-container">
         <div className="action-left">
           <p>Profile Details</p>
