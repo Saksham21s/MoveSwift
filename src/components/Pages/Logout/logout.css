@@ -548,3 +548,77 @@
 .submit-button-email:hover {
   background-color: rgb(255, 226, 60);
 }
+
+/*-------OTP Alert Messsage--------*/
+.otp-message {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgb(255, 226, 60);
+  color: rgb(0, 0, 0);
+  padding: 12px 18px;
+  border-radius: 5px;
+  font-size: 14px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 400px;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+
+  span{
+    color: black;
+  }
+  .close-error{
+    color: black;
+  }
+}
+
+.error-message {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 0, 0);
+  padding: 12px 18px;
+  border-radius: 5px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 400px;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+
+  span{
+    color: rgb(255, 255, 255);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translate(-50%, -10px);
+  }
+  to {
+      opacity: 1;
+      transform: translateX(-50%);
+  }
+}
+
+.close-error {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+
