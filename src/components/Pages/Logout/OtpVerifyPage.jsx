@@ -46,6 +46,7 @@ const OtpVerifyPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (otp.join("") === generatedOtp) {
+            sessionStorage.removeItem("otp");
             navigate("/");
         } else {
             setErrorMessage("Incorrect OTP. Please try again.");
