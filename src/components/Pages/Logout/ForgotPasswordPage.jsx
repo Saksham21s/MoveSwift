@@ -33,36 +33,36 @@ const ForgotPasswordPage = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-container-form">
-        <img src={logo} alt="Login" className="login-image" />
-        <div className="form">
-          <h2>Forgot Password</h2>
-          <div className="para-div">
-            Let us remind you. <br />
-            Please enter your mobile number to reset your password.
-          </div>
-          <form onSubmit={handleSubmit}>
-            <div className="input-container">
-              <input
-                type="text"
-                placeholder="Mobile Number"
-                value={mobileNumber}
-                onChange={(e) => setMobileNumber(e.target.value)}
-              />
-            </div>
-            {errors.mobileNumber && (
-              <div className="error">{errors.mobileNumber}</div>
-            )}
-            <div className="button-container-forgot">
-              <button type="submit" className="submit-button-forgot">
-                Send
-              </button>
-            </div>
-          </form>
+    <div className="forgot-container">
+    <div className="forgot-container-form">
+      <img src={logo} alt="Login" className="login-image" />
+      <div className="forgot-form">
+        <h2>Forgot Password</h2>
+        <div className="forgot-para">
+          Let us remind you. <br />
+          Please enter your mobile number to reset your password.
         </div>
+        <form onSubmit={handleSubmit}>
+          <div className="forgot-input-container">
+            <input
+              type="text"
+              placeholder="Mobile Number"
+              value={mobileNumber}
+              onChange={(e) => setMobileNumber(e.target.value)}
+            />
+          </div>
+          {errors.mobileNumber && (
+            <div className="forgot-error">{errors.mobileNumber}</div>
+          )}
+          <div className="forgot-button-container">
+            <button type="submit" className="submit-button">
+              Send
+            </button>
+          </div>
+        </form>
       </div>
     </div>
+  </div>  
   );
 };
 
