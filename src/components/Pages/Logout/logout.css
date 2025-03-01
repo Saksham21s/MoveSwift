@@ -173,7 +173,7 @@
 
     .forgot-password {
       margin-top: 10px;
-      margin-left: 150px;
+      margin-left: calc(70% - 80px);
     }
   }
 
