@@ -300,7 +300,6 @@
   }
 }
 
-
 .form-container {
   padding: 25px;
   background-color: rgba(255, 255, 255, 1);
@@ -310,6 +309,13 @@
   max-width: 1080px;
   height: auto;
   margin: 0 auto 30px;
+
+  .button-container {
+    text-align: center;
+    margin-top: 20px;
+    max-width:100% ;
+    justify-content: center;
+  }
 }
 
 .image-upload {
@@ -383,6 +389,7 @@
 .button-container {
   text-align: center;
   margin-top: 20px;
+  max-width:100% ;
 }
 
 .save-button {
@@ -445,6 +452,10 @@
   .form-container {
     padding: 15px;
     width: 95%;
+
+    .button-container {
+      align-items: center;
+    }
   }
 
   .input-row {
@@ -455,6 +466,7 @@
     max-width: 80px;
     height: 80px;
   }
+
 }
 
 .success-popup {

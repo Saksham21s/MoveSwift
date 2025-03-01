@@ -170,6 +170,11 @@
     height: auto;
     padding: 20px;
     margin-top: 20px;
+
+    .forgot-password {
+      margin-top: 10px;
+      margin-left: 160px;
+    }
   }
 
   .form input, .password-input {
@@ -190,7 +195,7 @@
 
   .forgot-password {
     margin-top: 10px;
-    margin-left: auto;
+    margin-left: 170px;
   }
 
   .submit-button {
