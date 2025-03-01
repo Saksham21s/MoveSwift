@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../../styles/style.min.css";
 import "./reports.css";
 import MainTop from "../Navbar/MainTop";
@@ -10,34 +10,40 @@ const ComplaintsPage = () => {
   const [dropdownState, setDropdownState] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
   const [selectedComplaint, setSelectedComplaint] = useState(null);
-  const [complaints, setComplaints] = useState(
-    Array.from({ length: 27 }, (_, index) => ({
-      id: index + 1,
-      riderId: `R00${index + 1}`,
-      name: [
-        "Aman Kumar", "Rahul Sharma", "Sakshi Verma", "Deepak Yadav", "Neha Singh", "Ravi Patel",
-        "Pooja Gupta", "Vikas Chauhan", "Shreya Jain", "Ankit Thakur", "Nidhi Rawat", "Kunal Mishra",
-        "Priya Mehta", "Ramesh Tiwari", "Sonia Dutta", "Yogesh Malhotra", "Kiran Desai", "Vivek Ahuja",
-        "Simran Kaur", "Harish Pandey", "Alok Tripathi", "Megha Joshi", "Chetan Bansal", "Ishita Kapoor",
-        "Sandeep Goyal", "Varun Saxena", "Monika Reddy"
-      ][index],
-      date: `2025-${String((index % 12) + 1).padStart(2, '0')}-${String((index % 28) + 1).padStart(2, '0')}`,
-      type: ["Delivery Issue", "Payment Issue", "App Issue", "Behavior", "Order Issue"][index % 5],
-      complaint: [
-        "Late delivery",
-        "Wrong deduction",
-        "App not working",
-        "Rude behavior",
-        "Wrong order delivered",
-      ][index % 5],
-      status: index % 2 === 0 ? "Resolved" : "Unresolved",
-      riderImage: `https://randomuser.me/api/portraits/${index % 2 === 0 ? "men" : "women"}/${index % 24}.jpg`,
-    }))
-  );
+  const [complaints, setComplaints] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [alertMessage, setAlertMessage] = useState(null);
   const [showViewPopup, setShowViewPopup] = useState(false);
   const [showResolvePopup, setShowResolvePopup] = useState(false);
 
+  useEffect(() => {
+    fetch("https://randomuser.me/api/?results=27")
+      .then((response) => response.json())
+      .then((data) => {
+        const formattedComplaints = data.results.map((user, index) => ({
+          id: index + 1,
+          riderId: `R00${index + 1}`,
+          name: `${user.name.first} ${user.name.last}`,
+          date: `2024-${String((index % 12) + 1).padStart(2, '0')}-${String((index % 28) + 1).padStart(2, '0')}`,
+          type: ["Delivery Issue", "Payment Issue", "App Issue", "Behavior", "Order Issue"][index % 5],
+          complaint: [
+            "Late delivery",
+            "Wrong deduction",
+            "App not working",
+            "Rude behavior",
+            "Wrong order delivered",
+          ][index % 5],
+          status: index % 2 === 0 ? "Resolved" : "Unresolved",
+          riderImage: user.picture.large,
+        }));
+        setComplaints(formattedComplaints);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      });
+  }, []);
 
   const handleViewClick = (complaint) => {
     setSelectedComplaint(complaint);
@@ -76,7 +82,7 @@ const ComplaintsPage = () => {
     (complaint) =>
       (filter === "All" || complaint.status === filter) &&
       (complaint.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        complaint.type.toLowerCase().includes(searchTerm.toLowerCase()))
+      complaint.type.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   return (
@@ -92,7 +98,11 @@ const ComplaintsPage = () => {
         </button>
       </div>
       <div className="complaints-container">
-        {alertMessage && <div className="alert-message" style={{ backgroundColor: "#FFD580", color: "black", padding: "10px", borderRadius: "5px", textAlign: "center", marginBottom: "10px" ,width:"max-content",marginInline:"auto"}}>{alertMessage}</div>}
+        {alertMessage && (
+          <div className="alert-message" style={{ backgroundColor: "#FFD580", color: "black", padding: "10px", borderRadius: "5px", textAlign: "center", marginBottom: "10px", width: "max-content", marginInline: "auto" }}>
+            {alertMessage}
+          </div>
+        )}
         <div className="filter-search-section">
           <input
             type="text"
@@ -110,44 +120,54 @@ const ComplaintsPage = () => {
               <th>Type</th>
               <th>Complaint</th>
               <th>Status</th>
-              <th style={{textAlign:'end'}}>Actions</th>
+              <th style={{ textAlign: 'end' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {filteredComplaints.map((complaint, index) => (
-              <tr key={complaint.id}>
-                <td>{index + 1}</td>
-                <td className="rider-info">
-                  <img src={complaint.riderImage} alt={complaint.name} className="rider-img" />
-                  <span>{complaint.name}</span>
-                </td>
-                <td>{complaint.date}</td>
-                <td>{complaint.type}</td>
-                <td>{complaint.complaint}</td>
-                <td>
-                  <div className={`complaint-status ${complaint.status.toLowerCase()}`}>
-                    {complaint.status}
-                  </div>
-                </td>
-                <td>
-                  <div className="dropdown">
-                    <button
-                      className="ellipsis-btn"
-                      onClick={() => setDropdownState(dropdownState === complaint.id ? null : complaint.id)}
-                    >
-                      ⋮
-                    </button>
-                    {dropdownState === complaint.id && (
-                      <div className="dropdown-menu">
-                        <button onClick={() => handleViewClick(complaint)}>View</button>
-                        <button onClick={() => handleResolveClick(complaint)}>Resolve</button>
-                        <button onClick={() => handleDeleteClick(complaint)}>Delete</button>
-                      </div>
-                    )}
-                  </div>
-                </td>
+            {loading ? (
+              <tr>
+                <td colSpan="7" className="no-data">Loading...</td>
               </tr>
-            ))}
+            ) : filteredComplaints.length > 0 ? (
+              filteredComplaints.map((complaint, index) => (
+                <tr key={complaint.id}>
+                  <td>{index + 1}</td>
+                  <td className="rider-info">
+                    <img src={complaint.riderImage} alt={complaint.name} className="rider-img" />
+                    <span>{complaint.name}</span>
+                  </td>
+                  <td>{complaint.date}</td>
+                  <td>{complaint.type}</td>
+                  <td>{complaint.complaint}</td>
+                  <td>
+                    <div className={`complaint-status ${complaint.status.toLowerCase()}`}>
+                      {complaint.status}
+                    </div>
+                  </td>
+                  <td>
+                    <div className="dropdown">
+                      <button
+                        className="ellipsis-btn"
+                        onClick={() => setDropdownState(dropdownState === complaint.id ? null : complaint.id)}
+                      >
+                        ⋮
+                      </button>
+                      {dropdownState === complaint.id && (
+                        <div className="dropdown-menu">
+                          <button onClick={() => handleViewClick(complaint)}>View</button>
+                          <button onClick={() => handleResolveClick(complaint)}>Resolve</button>
+                          <button onClick={() => handleDeleteClick(complaint)}>Delete</button>
+                        </div>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="7" className="no-data">No complaints found</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
