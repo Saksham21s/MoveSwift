@@ -140,6 +140,12 @@
   overflow-x: auto;
 }
 
+.search-filter{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .filter-buttons {
   display: flex;
   justify-content: center;
@@ -175,7 +181,7 @@
 }
 
 .filter-search-section input {
-  width: 30%;
+  width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 15px;

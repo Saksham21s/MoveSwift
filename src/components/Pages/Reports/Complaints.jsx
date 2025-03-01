@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../../../styles/style.min.css";
 import "./reports.css";
 import MainTop from "../Navbar/MainTop";
@@ -15,6 +15,9 @@ const ComplaintsPage = () => {
   const [alertMessage, setAlertMessage] = useState(null);
   const [showViewPopup, setShowViewPopup] = useState(false);
   const [showResolvePopup, setShowResolvePopup] = useState(false);
+  const [sortOrder, setSortOrder] = useState(null);
+  const [showFilterPopup, setShowFilterPopup] = useState(false);
+  const filterPopupRef = useRef(null);
 
   useEffect(() => {
     fetch("https://randomuser.me/api/?results=27")
@@ -78,12 +81,30 @@ const ComplaintsPage = () => {
     setShowResolvePopup(false);
   };
 
+  const handleFilterClick = () => {
+    setShowFilterPopup(!showFilterPopup);
+  };
+
+  const handleSortOrder = (order) => {
+    setSortOrder(order);
+    setShowFilterPopup(false);
+  };
+
   const filteredComplaints = complaints.filter(
     (complaint) =>
       (filter === "All" || complaint.status === filter) &&
       (complaint.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       complaint.type.toLowerCase().includes(searchTerm.toLowerCase()))
   );
+
+  const sortedComplaints = [...filteredComplaints].sort((a, b) => {
+    if (sortOrder === "asc") {
+      return a.name.localeCompare(b.name);
+    } else if (sortOrder === "desc") {
+      return b.name.localeCompare(a.name);
+    }
+    return 0;
+  });
 
   return (
     <main className="main-content">
@@ -103,6 +124,7 @@ const ComplaintsPage = () => {
             {alertMessage}
           </div>
         )}
+        <div className="search-filter">
         <div className="filter-search-section">
           <input
             type="text"
@@ -110,7 +132,21 @@ const ComplaintsPage = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+          
         </div>
+        <div className="filter-container">
+            <button className="filter-btn" onClick={handleFilterClick}>
+              Filter
+            </button>
+            {showFilterPopup && (
+              <div className="filter-popup" ref={filterPopupRef}>
+                <button onClick={() => handleSortOrder("asc")}>Arrange Ascending</button>
+                <button onClick={() => handleSortOrder("desc")}>Arrange Descending</button>
+              </div>
+            )}
+          </div>
+          </div>
+        
         <table className="complaints-table">
           <thead>
             <tr>
@@ -128,8 +164,8 @@ const ComplaintsPage = () => {
               <tr>
                 <td colSpan="7" className="no-data">Loading...</td>
               </tr>
-            ) : filteredComplaints.length > 0 ? (
-              filteredComplaints.map((complaint, index) => (
+            ) : sortedComplaints.length > 0 ? (
+              sortedComplaints.map((complaint, index) => (
                 <tr key={complaint.id}>
                   <td>{index + 1}</td>
                   <td className="rider-info">
