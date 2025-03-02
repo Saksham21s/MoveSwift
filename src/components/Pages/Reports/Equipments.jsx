@@ -5,7 +5,7 @@ import MainTop from "../Navbar/MainTop";
 import DialogueBox from "../Riders/ConfirmationDialog";
 
 const ComplaintsPage = () => {
-  const [filter, setFilter] = useState("Unresolved");
+  const [filter, setFilter] = useState("Incomplete");
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownState, setDropdownState] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
@@ -56,7 +56,7 @@ const ComplaintsPage = () => {
   };
 
   const handleConfirmDelete = () => {
-    setComplaints(complaints.filter(c => c.id !== selectedComplaint.id));
+    setComplaints(complaints.filter((c) => c.id !== selectedComplaint.id));
     setAlertMessage(`${selectedComplaint.name} deleted.`);
     setTimeout(() => setAlertMessage(null), 2000);
     setShowDialog(false);
@@ -82,13 +82,24 @@ const ComplaintsPage = () => {
     setShowFilterPopup(false);
   };
 
-  const filteredComplaints = complaints.filter(
-    (complaint) =>
-      (filter === "All" || complaint.status === filter) &&
-      (complaint.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  const filteredComplaints = complaints.filter((complaint) => {
+    const [provided, total] = complaint.equipmentProvided.split('/').map(Number);
+
+    // Check if the complaint matches the search term
+    const matchesSearchTerm =
+      complaint.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       complaint.riderId.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      complaint.equipmentProvided.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+      complaint.equipmentProvided.toLowerCase().includes(searchTerm.toLowerCase());
+
+    // Apply the filter based on the selected filter type
+    if (filter === "Complete") {
+      return provided === total && matchesSearchTerm; // Only show complete
+    } else if (filter === "Incomplete") {
+      return provided !== total && matchesSearchTerm; // Only show incomplete
+    } else {
+      return matchesSearchTerm; // Show all if no filter is selected
+    }
+  });
 
   const sortedComplaints = [...filteredComplaints].sort((a, b) => {
     if (sortOrder === "asc") {
@@ -100,10 +111,11 @@ const ComplaintsPage = () => {
   });
 
   const getStatusClass = (equipment) => {
-    const isResolved = equipment.split('/')[0] === equipment.split('/')[1];
+    const [provided, total] = equipment.split('/').map(Number);
+    const isResolved = provided === total;
     return {
       className: isResolved ? "resolved-green" : "resolved-red",
-      text: isResolved ? "Complete" : "Incomplete"
+      text: isResolved ? "Complete" : "Incomplete",
     };
   };
 
@@ -111,10 +123,16 @@ const ComplaintsPage = () => {
     <main className="main-content">
       <MainTop title="Equipments" />
       <div className="filter-buttons">
-        <button onClick={() => setFilter("Resolved")} className={filter === "Resolved" ? "active" : ""}>
+        <button
+          onClick={() => setFilter("Complete")}
+          className={filter === "Complete" ? "active" : ""}
+        >
           Complete
         </button>
-        <button onClick={() => setFilter("Unresolved")} className={filter === "Unresolved" ? "active" : ""}>
+        <button
+          onClick={() => setFilter("Incomplete")}
+          className={filter === "Incomplete" ? "active" : ""}
+        >
           Incomplete
         </button>
       </div>
