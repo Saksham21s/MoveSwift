@@ -283,6 +283,10 @@ html {
 
     .card {
       min-width: 100%;
+
+      .card-body .card-title{
+        font-size: 15px;
+      }
     }
   }
 }
@@ -296,7 +300,6 @@ html {
   .summary-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
     justify-content: center;
   }
 

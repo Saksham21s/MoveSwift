@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../../../styles/style.min.css";
 import "./reports.css";
 import MainTop from "../Navbar/MainTop";
@@ -10,48 +10,35 @@ const ComplaintsPage = () => {
   const [dropdownState, setDropdownState] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
   const [selectedComplaint, setSelectedComplaint] = useState(null);
+  const [complaints, setComplaints] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [alertMessage, setAlertMessage] = useState(null);
   const [showViewPopup, setShowViewPopup] = useState(false);
   const [showResolvePopup, setShowResolvePopup] = useState(false);
+  const [sortOrder, setSortOrder] = useState(null);
+  const [showFilterPopup, setShowFilterPopup] = useState(false);
+  const filterPopupRef = useRef(null);
 
-  const names = [
-    "Aman Kumar", "Rahul Sharma", "Sakshi Verma", "Deepak Yadav", "Neha Singh", "Ravi Patel",
-    "Pooja Gupta", "Vikas Chauhan", "Shreya Jain", "Ankit Thakur", "Nidhi Rawat", "Kunal Mishra",
-    "Priya Mehta", "Ramesh Tiwari", "Sonia Dutta", "Yogesh Malhotra", "Kiran Desai", "Vivek Ahuja",
-    "Simran Kaur", "Harish Pandey", "Alok Tripathi", "Megha Joshi", "Chetan Bansal", "Ishita Kapoor",
-    "Sandeep Goyal", "Varun Saxena", "Monika Reddy"
-  ];
-
-  const [complaints, setComplaints] = useState(() => {
-    return names.map((name, index) => {
-      const equipment = ["10/12", "14", "16/16", "11/11", "12/12", "17/17"][index % 6];
-      return {
-        id: index + 1,
-        riderId: `R00${index + 1}`,
-        name,
-        equipmentProvided: equipment,
-        status: equipment.split('/')[0] === equipment.split('/')[1] ? "Resolved" : "Unresolved",
-        riderImage: `https://randomuser.me/api/portraits/${index % 2 === 0 ? "men" : "women"}/${index % 24}.jpg`,
-      };
-    });
-  });
-
-  const filteredComplaints = complaints.filter(
-    (complaint) =>
-      (filter === "All" || complaint.status === filter) &&
-      (complaint.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        complaint.riderId.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        complaint.equipmentProvided.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
-
-  const getStatusClass = (equipment) => {
-    const isResolved = equipment.split('/')[0] === equipment.split('/')[1];
-    return {
-      className: isResolved ? "resolved-green" : "resolved-red",
-      text: isResolved ? "Complete" : "Incomplete"
-    };
-  };
-
-  const [alertMessage, setAlertMessage] = useState(null);
+  useEffect(() => {
+    fetch("https://randomuser.me/api/?results=27")
+      .then((response) => response.json())
+      .then((data) => {
+        const formattedComplaints = data.results.map((user, index) => ({
+          id: index + 1,
+          riderId: `R00${index + 1}`,
+          name: `${user.name.first} ${user.name.last}`,
+          equipmentProvided: ["10/12", "14", "16/16", "11/11", "12/12", "17/17"][index % 6],
+          status: ["Resolved", "Unresolved"][index % 2],
+          riderImage: user.picture.large,
+        }));
+        setComplaints(formattedComplaints);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      });
+  }, []);
 
   const handleViewClick = (complaint) => {
     setSelectedComplaint(complaint);
@@ -86,6 +73,40 @@ const ComplaintsPage = () => {
     setShowResolvePopup(false);
   };
 
+  const handleFilterClick = () => {
+    setShowFilterPopup(!showFilterPopup);
+  };
+
+  const handleSortOrder = (order) => {
+    setSortOrder(order);
+    setShowFilterPopup(false);
+  };
+
+  const filteredComplaints = complaints.filter(
+    (complaint) =>
+      (filter === "All" || complaint.status === filter) &&
+      (complaint.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      complaint.riderId.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      complaint.equipmentProvided.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
+
+  const sortedComplaints = [...filteredComplaints].sort((a, b) => {
+    if (sortOrder === "asc") {
+      return a.name.localeCompare(b.name);
+    } else if (sortOrder === "desc") {
+      return b.name.localeCompare(a.name);
+    }
+    return 0;
+  });
+
+  const getStatusClass = (equipment) => {
+    const isResolved = equipment.split('/')[0] === equipment.split('/')[1];
+    return {
+      className: isResolved ? "resolved-green" : "resolved-red",
+      text: isResolved ? "Complete" : "Incomplete"
+    };
+  };
+
   return (
     <main className="main-content">
       <MainTop title="Equipments" />
@@ -99,14 +120,31 @@ const ComplaintsPage = () => {
       </div>
 
       <div className="complaints-container">
-        {alertMessage && <div className="alert-message" style={{ backgroundColor: "#FFD580", color: "black", padding: "10px", borderRadius: "5px", textAlign: "center", marginBottom: "10px" ,width:"max-content",marginInline:"auto"}}>{alertMessage}</div>}
-        <div className="filter-search-section">
-          <input
-            type="text"
-            placeholder="Search Equipemts"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+        {alertMessage && (
+          <div className="alert-message" style={{ backgroundColor: "#FFD580", color: "black", padding: "10px", borderRadius: "5px", textAlign: "center", marginBottom: "10px", width: "max-content", marginInline: "auto" }}>
+            {alertMessage}
+          </div>
+        )}
+        <div className="search-filter">
+          <div className="filter-search-section">
+            <input
+              type="text"
+              placeholder="Search Equipments"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <div className="filter-container">
+            <button className="filter-btn" onClick={handleFilterClick}>
+              Filter
+            </button>
+            {showFilterPopup && (
+              <div className="filter-popup" ref={filterPopupRef}>
+                <button onClick={() => handleSortOrder("asc")}>Arrange Ascending</button>
+                <button onClick={() => handleSortOrder("desc")}>Arrange Descending</button>
+              </div>
+            )}
+          </div>
         </div>
 
         <table className="complaints-table">
@@ -117,46 +155,56 @@ const ComplaintsPage = () => {
               <th>Rider</th>
               <th>Equipments Provided</th>
               <th>Status</th>
-              <th style={{textAlign:'end'}}>Actions</th>
+              <th style={{ textAlign: 'end' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {filteredComplaints.map((complaint, index) => {
-              const { className, text } = getStatusClass(complaint.equipmentProvided);
-              return (
-                <tr key={complaint.id}>
-                  <td>{index + 1}</td>
-                  <td>{complaint.riderId}</td>
-                  <td className="rider-info">
-                    <img src={complaint.riderImage} alt={complaint.name} className="rider-img" />
-                    <span>{complaint.name}</span>
-                  </td>
-                  <td>{complaint.equipmentProvided}</td>
-                  <td id="status-clr">
-                    <div className={`complaint-status ${className}`}>
-                      {text}
-                    </div>
-                  </td>
-                  <td>
-                    <div className="dropdown">
-                      <button
-                        className="ellipsis-btn"
-                        onClick={() => setDropdownState(dropdownState === complaint.id ? null : complaint.id)}
-                      >
-                        ⋮
-                      </button>
-                      {dropdownState === complaint.id && (
-                        <div className="dropdown-menu">
-                          <button onClick={() => handleViewClick(complaint)}>View</button>
-                          <button onClick={() => handleResolveClick(complaint)}>Resolve</button>
-                          <button onClick={() => handleDeleteClick(complaint)}>Delete</button>
-                        </div>
-                      )}
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
+            {loading ? (
+              <tr>
+                <td colSpan="6" className="no-data">Loading...</td>
+              </tr>
+            ) : sortedComplaints.length > 0 ? (
+              sortedComplaints.map((complaint, index) => {
+                const { className, text } = getStatusClass(complaint.equipmentProvided);
+                return (
+                  <tr key={complaint.id}>
+                    <td>{index + 1}</td>
+                    <td>{complaint.riderId}</td>
+                    <td className="rider-info">
+                      <img src={complaint.riderImage} alt={complaint.name} className="rider-img" />
+                      <span>{complaint.name}</span>
+                    </td>
+                    <td>{complaint.equipmentProvided}</td>
+                    <td id="status-clr">
+                      <div className={`complaint-status ${className}`}>
+                        {text}
+                      </div>
+                    </td>
+                    <td>
+                      <div className="dropdown">
+                        <button
+                          className="ellipsis-btn"
+                          onClick={() => setDropdownState(dropdownState === complaint.id ? null : complaint.id)}
+                        >
+                          ⋮
+                        </button>
+                        {dropdownState === complaint.id && (
+                          <div className="dropdown-menu">
+                            <button onClick={() => handleViewClick(complaint)}>View</button>
+                            <button onClick={() => handleResolveClick(complaint)}>Resolve</button>
+                            <button onClick={() => handleDeleteClick(complaint)}>Delete</button>
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })
+            ) : (
+              <tr>
+                <td colSpan="6" className="no-data">No complaints found</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

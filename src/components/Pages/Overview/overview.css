@@ -189,6 +189,10 @@
     border-top: 2px solid gray;
     padding-top: 15px;
     height: auto;
+
+    .detail{
+      padding: 5px;
+    }
   }
 
   .chart-section {
