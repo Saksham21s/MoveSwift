@@ -216,7 +216,7 @@
     .cards-section {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 8px;
+      margin-right: 0;
   
       .file-card {
         width: 100%;
@@ -240,7 +240,7 @@
     }
   
     .right-div {
-      width: 95%;
+      width: 100%;
       max-width: 400px;
       padding: 20px;
       padding-block: 30px;
@@ -249,7 +249,6 @@
   
     .date-picker {
       width: 100%;
-      max-width: 250px;
     }
   
     .modal-content {
