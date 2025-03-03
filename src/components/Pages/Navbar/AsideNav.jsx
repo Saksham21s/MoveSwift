@@ -17,7 +17,7 @@ import {
   faTools,
   faDownload
 } from "@fortawesome/free-solid-svg-icons";
-import logo from "../../../assets/fullship-logo.png";
+import logo from "../../../assets/moveswift-logo.png";
 import block from "../../../assets/block-user.png";
 
 const AsideSection = () => {
@@ -53,7 +53,7 @@ const AsideSection = () => {
 
   const confirmLogout = () => {
     setShowLogoutModal(false);
-    navigate("/logout");
+    navigate("/login");
   };
 
   const cancelLogout = () => {
@@ -68,7 +68,7 @@ const AsideSection = () => {
             <div className="img-logo">
               <img src={logo} alt="Logo" className="logo-img" />
             </div>
-            <span className="logo-text">FULL SHIP</span>
+            <span className="logo-text">MoveSwift</span>
           </div>
         </Link>
 

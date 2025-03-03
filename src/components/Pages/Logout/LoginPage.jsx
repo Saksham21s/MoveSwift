@@ -2,7 +2,7 @@ import "./logout.css";
 import { useState, useEffect } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
-import logo from "../../../assets/fullship-logo.png";
+import logo from "../../../assets/moveswift-logo.png";
 import profilePic from "../../../assets/profile-img.webp";
 import { useNavigate } from "react-router-dom";
 
@@ -62,9 +62,9 @@ const LogoutPage = () => {
       }
   
       if (storedUser.mobileNumber === mobileNumber && storedUser.password === password) {
-        sessionStorage.setItem("user", JSON.stringify(storedUser)); // ✅ Ensure session is set before redirecting
+        sessionStorage.setItem("user", JSON.stringify(storedUser)); 
         navigate("/");
-        window.location.reload(); // 🔥 Force reload to apply state properly
+        window.location.reload(); 
       } else {
         setErrors({ mobileNumber: "Invalid mobile number or password" });
       }

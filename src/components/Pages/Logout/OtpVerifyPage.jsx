@@ -1,6 +1,6 @@
 import "./logout.css";
 import { useState, useRef } from "react";
-import logo from "../../../assets/fullship-logo.png";
+import logo from "../../../assets/moveswift-logo.png";
 import { useNavigate } from "react-router-dom";
 
 const OtpVerifyPage = () => {

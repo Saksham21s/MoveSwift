@@ -13,14 +13,14 @@ import FilesPage from './components/Pages/Files/FilesPage';
 import SettingsPage from './components/Pages/Settings/SettingsPage';
 import AddEmployeePage from './components/Pages/Settings/AddEmployee';
 import AddRolePage from './components/Pages/Settings/AddRole';
-import LogoutPage from './components/Pages/Logout/LogoutPage';
+import LoginPage from './components/Pages/Logout/LoginPage';
 import ForgotPasswordPage from './components/Pages/Logout/ForgotPasswordPage';
 import OtpVerifyPage from './components/Pages/Logout/OtpVerifyPage';
 import ProfilePage from './components/Pages/Profile/ProfilePage';
 
 function Layout() {
   const location = useLocation();
-  const isAuthPage = ["/logout", "/forgot-password", "/otp-verify"].includes(location.pathname);
+  const isAuthPage = ["/login", "/forgot-password", "/otp-verify"].includes(location.pathname);
   const [isLoggedIn, setIsLoggedIn] = useState(!!sessionStorage.getItem("user"));
 
   useEffect(() => {
@@ -28,7 +28,7 @@ function Layout() {
   }, [location.pathname]);
 
   if (!isLoggedIn && !isAuthPage) {
-    return <Navigate to="/logout" replace />;
+    return <Navigate to="/login" replace />;
   }
 
   return (
@@ -55,7 +55,7 @@ function Layout() {
       )}
       {isAuthPage && (
         <Routes>
-          <Route path="/logout" element={<LogoutPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/otp-verify" element={<OtpVerifyPage />} />
         </Routes>
