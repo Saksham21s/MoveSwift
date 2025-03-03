@@ -497,11 +497,10 @@
 /*-------OTP Alert Messsage--------*/
 .otp-message {
   position: absolute;
-  top: 20px;
+  top: 185px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgb(255, 226, 60);
-  color: rgb(0, 0, 0);
+  background-color: rgb(255, 120, 0);
   padding: 12px 18px;
   border-radius: 5px;
   font-size: 14px;
@@ -511,17 +510,47 @@
   justify-content: space-between;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 90%;
-  max-width: 400px;
+  max-width: 450px;
   z-index: 1000;
   animation: fadeIn 0.3s ease-in-out;
 }
 
 .otp-message span {
-  color: black;
+  color: rgb(255, 255, 255);
 }
 
 .otp-message .close-error {
-  color: black;
+  svg path{color: rgb(255, 255, 255);}
+  
+}
+
+.otp-message1 {
+  position: absolute;
+  top: 112px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgb(255, 120, 0);
+  padding: 12px 18px;
+  border-radius: 5px;
+  font-size: 14px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 350px;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.otp-message1 span {
+  color: rgb(255, 255, 255);
+}
+
+.otp-message1 .close-error {
+  svg path{color: rgb(255, 255, 255);}
+  
 }
 
 .error-message {

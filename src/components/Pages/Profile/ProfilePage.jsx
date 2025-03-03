@@ -4,7 +4,7 @@ import MainTop from "../Navbar/MainTop";
 import ConfirmationDialog from "../Riders/ConfirmationDialog";
 import "../../../styles/style.min.css";
 import "./profile.css";
-import ProfileImageDefault from "../../../assets/profile-img.webp";
+import ProfileImageDefault from "../../../assets/admin-profile.jpg";
 import { FaMoneyBillWave, FaEdit } from "react-icons/fa";
 
 const ProfilePage = () => {

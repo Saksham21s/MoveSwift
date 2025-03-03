@@ -78,7 +78,7 @@ const OtpVerifyPage = () => {
                     </div>
                 )}
                 {otpMessage && (
-                    <div className="otp-message">
+                    <div className="otp-message1">
                         <span>{otpMessage}</span>
                         <button className="close-error" onClick={handleCloseOtpMessage}>&times;</button>
                     </div>

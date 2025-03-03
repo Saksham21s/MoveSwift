@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import logo from "../../../assets/moveswift-logo.png";
-import profilePic from "../../../assets/profile-img.webp";
+import profilePic from "../../../assets/admin-profile.jpg";
 import { useNavigate } from "react-router-dom";
 
 const LogoutPage = () => {
@@ -76,7 +76,7 @@ const LogoutPage = () => {
     <div className="login-container">
       {showAlert && (
         <div className="otp-message">
-          <span>Enter any number and password of your choice & remember it. This page uses session storage for login.</span>
+          <span>Remember you Login Credential for current session</span>
           <button className="close-error" onClick={handleCloseAlert}>
             <IoClose />
           </button>
@@ -86,7 +86,7 @@ const LogoutPage = () => {
         <img src={logo} alt="Login" className="login-image" />
         <div className="form">
           <h2>Login</h2>
-          <input type="text" placeholder="Mobile Number" value={mobileNumber} onChange={(e) => setMobileNumber(e.target.value)} />
+          <input type="number" placeholder="Mobile Number" value={mobileNumber} onChange={(e) => setMobileNumber(e.target.value)} />
           {errors.mobileNumber && <div className="error">{errors.mobileNumber}</div>}
           <div className="password-input-container">
             <input type={passwordVisible ? "text" : "password"} placeholder="Password" className="password-input" value={password} onChange={(e) => setPassword(e.target.value)} />

@@ -68,7 +68,7 @@ const AsideSection = () => {
             <div className="img-logo">
               <img src={logo} alt="Logo" className="logo-img" />
             </div>
-            <span className="logo-text">MoveSwift</span>
+            <span className="logo-text">MOVE SWIFT</span>
           </div>
         </Link>
 

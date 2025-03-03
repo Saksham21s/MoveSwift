@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import profilePic from "../../../assets/profile-img.webp";
+import profilePic from "../../../assets/admin-profile.jpg";
 
 const MainTop = ({ title }) => {
   const navigate = useNavigate();
