@@ -555,7 +555,7 @@
 
 .error-message {
   position: absolute;
-  top: 20px;
+  top: 112px;
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(255, 0, 0);
